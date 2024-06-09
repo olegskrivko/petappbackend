@@ -1,12 +1,12 @@
 // middlewares/validation/userValidation.js
-const { body } = require("express-validator");
-const User = require("../../models/userModel");
+// const { body } = require("express-validator");
+// const User = require("../../models/userModelold");
 
-const validateCreateUser = [];
+// const validateCreateUser = [];
 
-const validateUpdateUser = [];
+// const validateUpdateUser = [];
 
-module.exports = {
-  validateCreateUser,
-  validateUpdateUser,
-};
+// module.exports = {
+//   validateCreateUser,
+//   validateUpdateUser,
+// };

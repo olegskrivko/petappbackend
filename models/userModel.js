@@ -1,195 +1,151 @@
-// // models/userModel.js
-// const mongoose = require("mongoose");
-
-// // const mealPlanSchema = new mongoose.Schema({
-// //   day: { type: String, required: true }, // "Monday", "Tuesday", etc.
-// //   meals: [
-// //     {
-// //       time: { type: String, required: true }, // "Breakfast", "Lunch", "Dinner", etc.
-// //       recipes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }], // References to recipes
-// //     },
-// //   ],
-// // });
-
-// const userSchema = new mongoose.Schema({
-//   username: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//   },
-//   email: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//     lowercase: true,
-//   },
-//   password: {
-//     type: String,
-//     required: true,
-//   },
-
-//   address: String,
-//   phoneNumber: String,
-//   role: {
-//     type: String,
-//     enum: ["user", "admin"],
-//     default: "user",
-//   },
-//   petsOwned: [
-//     {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Pet",
-//     },
-//   ],
-//   dateJoined: {
-//     type: Date,
-//     default: Date.now,
-//   },
-
-//   firstName: { type: String },
-//   lastName: { type: String },
-//   password: { type: String, required: true },
-//   role: { type: String, default: "user" }, // admin, user, etc.
-
-//   // level: {
-//   //   type: Number,
-//   //   default: 1,
-//   // },
-
-//   profilePicture: { type: String }, // URL or image upload
-//   bio: { type: String },
-//   favoriteRecipes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }],
-//   dietaryPreferences: [{ type: String }], // Array of dietary preferences
-//   //recipesLiked: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }],
-//   //recipesShared: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }],
-//   //numberOfFollowers: { type: Number, default: 0 },
-//   //numberOfFollowing: { type: Number, default: 0 },
-//   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-//   facebookProfile: { type: String },
-//   //twitterHandle: { type: String },
-//   instagramProfile: { type: String },
-//   notificationPreferences: { type: String }, // Can be further detailed based on your needs
-//   emailPreferences: { type: String }, // Can be further detailed based on your needs
-//   twoFactorAuthentication: { type: Boolean, default: false },
-//   country: { type: String },
-//   city: { type: String },
-//   dateOfRegistration: { type: Date, default: Date.now },
-//   lastLogin: { type: Date },
-//   accountStatus: { type: String, default: "active" }, // active, suspended, etc.
-//   passwordResetToken: { type: String },
-// });
-
-// const User = mongoose.model("User", userSchema);
-
-// module.exports = User;
-
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
-// Define schema for basic information
-const basicInfoSchema = new mongoose.Schema({
-  fullName: {
+const locationSchema = new mongoose.Schema({
+  type: {
     type: String,
-    required: true,
+    enum: ["Point"],
+    default: "Point",
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  username: {
-    type: String,
-    unique: true,
-  },
-  phoneNumber: {
-    type: String,
-  },
-  location: {
-    address: String,
-    city: String,
-    state: String,
-    zipCode: String,
+  coordinates: {
+    type: [Number],
+    index: "2dsphere", // Create a geospatial index
+    default: [0, 0], // Default coordinates (longitude, latitude)
   },
 });
 
-// Define schema for profile information
-const profileSchema = new mongoose.Schema({
-  profilePicture: String,
-  description: String,
-  website: String,
-  socialMedia: {
-    facebook: String,
-    twitter: String,
-    instagram: String,
+const userSchema = new mongoose.Schema(
+  {
+    avatar: {
+      type: String, // URL or file path to avatar image
+      default: "path_to_default_avatar.jpg", // Default avatar path
+    },
+    firstName: {
+      type: String,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+    },
+    language: {
+      type: String,
+      trim: true,
+    },
+    address: {
+      street: { type: String },
+      city: { type: String },
+      state: { type: String },
+      postalCode: { type: String },
+      country: { type: String },
+    },
+    defaultLocation: {
+      type: locationSchema,
+      required: true,
+    },
+    phone: {
+      type: String,
+      trim: true,
+    },
+    phoneCode: {
+      type: String,
+      trim: true,
+    },
+    isLightTheme: {
+      type: Boolean,
+      default: true,
+    },
+    receiveNotifications: {
+      type: Boolean,
+      default: false,
+    },
+    receiveNewsletters: {
+      type: Boolean,
+      default: false,
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    pets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pet",
+      },
+    ],
+    emailVerificationToken: {
+      type: String,
+      default: null,
+    },
+    emailVerificationTokenExpires: {
+      type: Date,
+      default: null,
+    },
+    phoneVerificationToken: {
+      type: String,
+      default: null,
+    },
+    phoneVerificationTokenExpires: {
+      type: Date,
+      default: null,
+    },
+    resetPasswordToken: {
+      type: String,
+      default: null,
+    },
+    resetPasswordExpire: {
+      type: Date,
+      default: null,
+    },
   },
-  businessLicenseNumber: String,
+  { timestamps: true }
+);
+
+// Hash the password before saving
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
 });
 
-// Define schema for service information
-const serviceSchema = new mongoose.Schema({
-  typeOfService: String,
-  serviceArea: String,
-  availability: String,
-  pricing: String,
-});
+// Compare password method
+userSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
-// Define schema for company information
-const companySchema = new mongoose.Schema({
-  companyName: String,
-  businessType: String,
-  industry: String,
-  businessHours: String,
-  contactPerson: String,
-  taxId: String,
-});
+const User = mongoose.model("User", userSchema);
 
-// Define schema for additional information
-const additionalInfoSchema = new mongoose.Schema({
-  preferences: {
-    language: String,
-    communicationMethods: [String],
-  },
-  termsOfServiceAgreement: {
-    type: Boolean,
-    required: true,
-  },
-  privacyPolicyAgreement: {
-    type: Boolean,
-    required: true,
-  },
-});
-
-// Define schema for security measures
-const securitySchema = new mongoose.Schema({
-  captcha: Boolean,
-  twoFactorAuthentication: Boolean,
-});
-
-// Define schema for verification process
-const verificationSchema = new mongoose.Schema({
-  isEmailVerified: {
-    type: Boolean,
-    default: false,
-  },
-  isPhoneVerified: {
-    type: Boolean,
-    default: false,
-  },
-});
-
-// Combine all schemas into a single schema
-const userSchema = new mongoose.Schema({
-  basicInfo: basicInfoSchema,
-  profileInfo: profileSchema,
-  serviceInfo: serviceSchema,
-  companyInfo: companySchema,
-  additionalInfo: additionalInfoSchema,
-  securityMeasures: securitySchema,
-  verificationProcess: verificationSchema,
-});
-
-// Create and export the Mongoose model
-module.exports = mongoose.model("User", userSchema);
+module.exports = User;

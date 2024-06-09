@@ -17,5 +17,3 @@ const optionSetController = require("../controllers/optionSetController");
 router.post("/", optionSetController.addOption);
 
 module.exports = router;
-
-module.exports = router;

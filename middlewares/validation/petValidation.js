@@ -3,67 +3,66 @@ const { body } = require("express-validator");
 const Pet = require("../../models/petModel");
 
 const validateCreatePet = [
-  // body("name").notEmpty().withMessage("Pet name is required"),
-  // .trim()
-  // .isLength({ max: 50 })
-  // .withMessage("Pet name must be less than 50 characters")
-  // .custom(async (value, { req }) => {
-  //   // Skip further checks if the title is empty or null
-  //   if (!value) {
-  //     return true;
-  //   }
-  //   // Perform the pattern and database checks together
-  //   const patternMatch = /^[a-zA-Z\s-]+$/i.test(value);
-  //   const existingPet = await Pet.findOne({ name: value });
-  //   if (!patternMatch) {
-  //     throw new Error(
-  //       "Pet name can only contain letters, spaces and hyphens"
-  //     );
-  //   }
-  //   if (existingPet) {
-  //     throw new Error("Pet name already exists");
-  //   }
-  //   return true;
-  // }),
-  // body("description")
+  // body("initialStatus")
   //   .notEmpty()
-  //   .withMessage("Pet description is required")
-  //   .trim()
-  //   .isLength({ max: 250 })
-  //   .withMessage("Pet description must be less than 250 characters"),
-];
-
-const validateUpdatePet = [
-  // body("name")
-  //   .notEmpty()
-  //   .withMessage("Pet name cannot be empty")
+  //   .withMessage("Pet initial status is required")
   //   .trim()
   //   .isLength({ max: 50 })
-  //   .withMessage("Pet name must be less than 50 characters")
-  //   .custom(async (value, { req }) => {
-  //     if (!value.trim()) {
-  //       throw new Error("Pet name is required");
-  //     }
-  //     const patternMatch = /^[a-zA-Z\s-]+$/i.test(value);
-  //     const existingPet = await Pet.findOne({ name: value });
-  //     if (!patternMatch) {
-  //       throw new Error(
-  //         "Pet name can only contain letters, spaces and hyphens"
-  //       );
-  //     }
-  //     // Check if the pet with the same name has a different ID
-  //     if (existingPet && existingPet._id.toString() !== req.params.id) {
-  //       throw new Error("Pet name already exists");
-  //     }
-  //     return true;
-  //   }),
-  // body("description")
+  //   .withMessage("Pet initial status must be less than 50 characters")
+  //   .escape(),
+  // body("category")
   //   .notEmpty()
-  //   .withMessage("Pet description cannot be empty")
+  //   .withMessage("Pet category is required")
+  //   .trim()
+  //   .isLength({ max: 50 })
+  //   .withMessage("Pet category must be less than 50 characters")
+  //   .escape(),
+  // body("identifier")
+  //   .trim()
+  //   .isLength({ max: 50 })
+  //   .withMessage("Pet identifier must be less than 50 characters")
+  //   .escape(),
+  // body("size")
+  //   .trim()
+  //   .isLength({ max: 50 })
+  //   .withMessage("Pet size must be less than 50 characters")
+  //   .escape(),
+  // body("gender")
+  //   .trim()
+  //   .isLength({ max: 50 })
+  //   .withMessage("Pet gender must be less than 50 characters"),
+  // body("behavior")
+  //   .trim()
+  //   .isLength({ max: 50 })
+  //   .withMessage("Pet behavior must be less than 50 characters")
+  //   .escape(),
+  // body("age")
+  //   .trim()
+  //   .isLength({ max: 50 })
+  //   .withMessage("Pet age must be less than 50 characters")
+  //   .escape(),
+  // body("breed")
+  //   .trim()
+  //   .isLength({ max: 50 })
+  //   .withMessage("Pet breed must be less than 50 characters")
+  //   .escape(),
+  // body("health")
+  //   .isArray()
+  //   .withMessage("Pet health must be an array")
+  //   .optional(),
+  // body("health.*")
+  //   .isLength({ max: 50 })
+  //   .withMessage("Each health item must be less than 50 characters")
+  //   .escape(),
+  // body("healthDetails")
   //   .trim()
   //   .isLength({ max: 250 })
-  //   .withMessage("Pet description must be less than 250 characters"),
+  //   .withMessage("Pet health details must be less than 250 characters")
+  //   .escape()
+  //   .optional(),
 ];
+
+const validateUpdatePet = [];
 
 module.exports = {
   validateCreatePet,

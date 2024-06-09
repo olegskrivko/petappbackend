@@ -1,77 +1,117 @@
 // models/petModel.js
 const mongoose = require("mongoose");
 
+const locationSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    enum: ["Point"],
+    default: "Point",
+  },
+  coordinates: {
+    type: [Number],
+    index: "2dsphere", // Create a geospatial index
+  },
+});
+
+const locationHistorySchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  location: {
+    type: locationSchema,
+    required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  commentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment",
+    required: true,
+  },
+});
+
 const petSchema = new mongoose.Schema(
   {
-    petStatus: {
+    initialStatus: {
       type: String,
       trim: true,
       maxlength: 50,
       required: true,
     },
-    petCategory: {
+    category: {
       type: String,
       trim: true,
       maxlength: 50,
       required: true,
     },
-    petIdentifier: {
+    identifier: {
       type: String,
       trim: true,
       maxlength: 50,
     },
-    petSize: {
+    size: {
       type: String,
       trim: true,
       maxlength: 50,
     },
-    petGender: {
+    gender: {
       type: String,
       trim: true,
       maxlength: 50,
     },
-    petBehavior: {
+    behavior: {
       type: String,
       trim: true,
       maxlength: 50,
     },
-    petAge: {
+    age: {
       type: String,
       trim: true,
       maxlength: 50,
     },
-    petBreed: {
+    breed: {
       type: String,
       trim: true,
       maxlength: 50,
     },
-    petHealth: {
-      type: String,
-      trim: true,
-      maxlength: 50,
-    },
-    otherHealthIssues: {
-      type: String,
-      trim: true,
-      maxlength: 50,
-    },
-    location: {
-      type: {
+    health: [
+      {
         type: String,
-        enum: ["Point"],
-        default: "Point",
+        trim: true,
+        maxlength: 50,
       },
-      coordinates: {
-        type: [Number],
-        index: "2dsphere", // Create a geospatial index
-      },
-    },
-    markingPattern: {
+    ],
+    healthDetails: {
       type: String,
       trim: true,
-      maxlength: 50,
+      maxlength: 250,
+    },
+    locationHistory: [locationHistorySchema],
+    // location: {
+    //   type: {
+    //     type: String,
+    //     enum: ["Point"],
+    //     default: "Point",
+    //   },
+    //   coordinates: {
+    //     type: [Number],
+    //     index: "2dsphere", // Create a geospatial index
+    //   },
+    // },
+    location: {
+      type: locationSchema,
+      required: true,
     },
     mainColor: {
+      type: String,
+      trim: true,
+      maxlength: 50,
+    },
+    markingPattern: {
       type: String,
       trim: true,
       maxlength: 50,
@@ -80,19 +120,26 @@ const petSchema = new mongoose.Schema(
       type: [String],
       trim: true,
     },
-    petLostOrFoundDate: {
+    date: {
       type: String,
     },
-    petLostOrFoundTime: {
+    time: {
       type: String,
     },
-    petImage: {
+    mainImage: {
       type: String,
     },
-    contactPhone: {
+    views: {
+      type: Number,
+      default: 0,
+    },
+    phone: {
       type: String,
     },
-    contactEmail: {
+    phoneCode: {
+      type: String,
+    },
+    email: {
       type: String,
     },
     notes: {
@@ -100,20 +147,48 @@ const petSchema = new mongoose.Schema(
       trim: true,
       maxlength: 250,
     },
-
-    sightingHistory: [
+    updatedStatus: {
+      type: String,
+      trim: true,
+      maxlength: 50,
+      // required: true,
+    },
+    updatedStatusDescription: {
+      type: String,
+      trim: true,
+      maxlength: 250,
+      // required: true,
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    comments: [
       {
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-        location: {
-          type: String,
-          trim: true,
-          maxlength: 250,
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
       },
     ],
+    relatedPost: {
+      type: String,
+      trim: true,
+      maxlength: 250,
+    },
+    possibleMatches: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pet",
+      },
+    ],
+    isPublic: {
+      type: Boolean,
+      default: true,
+    },
+    isClosed: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
@@ -121,3 +196,23 @@ const petSchema = new mongoose.Schema(
 const Pet = mongoose.model("Pet", petSchema);
 
 module.exports = Pet;
+
+// const commentSchema = new mongoose.Schema({
+//   text: {
+//     type: String,
+//     required: true,
+//     maxlength: 250,
+//   },
+//   postedBy: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "User",
+//   },
+//   date: {
+//     type: Date,
+//     default: Date.now,
+//   },
+//   location: {
+//     type: locationSchema,
+//     required: true,
+//   },
+// });

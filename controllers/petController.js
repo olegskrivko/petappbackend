@@ -1,5 +1,6 @@
 // controllers/petController.js
 const Pet = require("../models/petModel");
+const User = require("../models/userModel");
 
 // Get all pets
 async function getPets(req, res) {
@@ -15,13 +16,20 @@ async function getPets(req, res) {
 // Get a single pet by ID
 async function getPetById(req, res) {
   try {
-    const pet = await Pet.findById(req.params.id);
+    const pet = await Pet.findById(req.params.id)
+      .populate("author")
+      .populate("locationHistory.userId");
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });
     }
+
+    // Increment views by 1
+    pet.views++;
+    await pet.save();
     res.status(200).json(pet);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching pet" });
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
 
@@ -30,71 +38,83 @@ async function createPet(req, res) {
   try {
     // Extracting data from the request body
     const {
-      petStatus,
-      petCategory,
-      petIdentifier,
-      petSize,
-      petGender,
-      petBehavior,
-      petAge,
-      petBreed,
-      healthIssues,
-      otherHealthIssues,
-      petLocation,
-      markingPattern,
+      initialStatus,
+      category,
+      identifier,
+      size,
+      gender,
+      behavior,
+      age,
+      breed,
+      health,
+      healthDetails,
+      location,
       mainColor,
+      markingPattern,
       markingColors,
-      petLostOrFoundDate,
-      petLostOrFoundTime,
-      petImage,
-      contactPhone,
-      selectedCoatPattern,
-      petColor,
-      contactEmail,
+      date,
+      time,
+      mainImage,
+      phoneCode,
+      phone,
+      email,
       notes,
-
-      // petCoatLength,
+      updatedStatus,
+      updatedStatusDescription,
+      comments,
+      locationHistory,
+      isPublic,
+      isClosed,
+      author,
     } = req.body;
 
+    // Ensure that the userId is included in the request body
+    //const userId = req.user._id; // Assuming userId is available in req.user._id
+
+    // Verify that the userId exists in the database
+    const existingUser = await User.findById(author);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const clientData = req.body;
+    console.log("clientData", clientData);
     // Extract latitude and longitude from petLocation
-    const { lat, lng } = petLocation;
+    const { lat, lng } = location;
 
-    // Create a location object
-    // const location = {
-    //   type: "Point",
-    //   coordinates: [lng, lat], // Note: Longitude first, then latitude
-    // };
-
-    const me = req.body;
-    console.log("me", me);
     // Creating a new Pet instance with name, category, purchaseLink and slug
     const pet = new Pet({
-      petStatus,
-      petCategory,
-      petIdentifier,
-      petSize,
-      petGender,
-      petBehavior,
-      petAge,
-      petBreed,
-      healthIssues,
-      otherHealthIssues,
+      initialStatus,
+      category,
+      identifier,
+      size,
+      gender,
+      behavior,
+      age,
+      breed,
+      health,
+      healthDetails,
       location: {
-        // Construct the location object inline
         type: "Point",
-        coordinates: [lng, lat], // Longitude first, then latitude
+        coordinates: [lng, lat],
       },
-      markingPattern,
       mainColor,
+      markingPattern,
       markingColors,
-      petLostOrFoundDate,
-      petLostOrFoundTime,
-      petImage,
-      contactPhone,
-      selectedCoatPattern,
-      petColor,
-      contactEmail,
+      date,
+      time,
+      mainImage,
+      phoneCode,
+      phone,
+      email,
       notes,
+      updatedStatus,
+      updatedStatusDescription,
+      // comments: commentEntries,
+      // locationHistory: locationHistoryEntries,
+      isPublic,
+      isClosed,
+      author: existingUser._id,
     });
 
     console.log("pet", pet);

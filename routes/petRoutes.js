@@ -7,6 +7,8 @@ const {
   validateUpdatePet,
 } = require("../middlewares/validation/validation");
 const petController = require("../controllers/petController");
+const authenticateJWT = require("../middlewares/authentication/auth");
+const commentRoutes = require("./commentRoutes"); // Add this line
 
 // Get all pets
 router.get("/", petController.getPets);
@@ -15,12 +17,21 @@ router.get("/", petController.getPets);
 router.get("/:id", petController.getPetById);
 
 // Create a new pet
-router.post("/", validateCreatePet, validateRequest, petController.createPet);
+router.post(
+  "/",
+  authenticateJWT,
+  validateCreatePet,
+  validateRequest,
+  petController.createPet
+);
 
 // Update an existing pet
 router.put("/:id", validateUpdatePet, validateRequest, petController.updatePet);
 
 // Delete a pet
 router.delete("/:id", petController.deletePet);
+
+// Add this line after all the other routes
+router.use("/:id/comments", commentRoutes);
 
 module.exports = router;
