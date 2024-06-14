@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olegs' Personal Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #0779e4 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url('https://source.unsplash.com/random/1600x900') no-repeat 0 -400px;
+            text-align: center;
+            color: #fff;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        #showcase p {
+            font-size: 20px;
+        }
+        section {
+            padding: 20px 0;
+        }
+        .dark {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+        }
+        .box {
+            float: left;
+            width: 30%;
+            padding: 10px;
+            text-align: center;
+        }
+        footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #fff;
+            background-color: #333;
+            text-align: center;
+        }
+        @media(max-width: 768px) {
+            header #branding,
+            header nav,
+            header nav li,
+            .box {
+                float: none;
+                text-align: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Olegs' Webpage</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#interests">Interests</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <div class="container">
+            <h1>Welcome to My Personal Webpage</h1>
+            <p>Software Engineer | Coding Enthusiast | Marathon Runner</p>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2>About Me</h2>
+        <p>Hello! My name is Olegs, and I am a software engineer with a passion for coding, startups, and finance. I also enjoy running and have completed a marathon of 42km. In addition, I love photography and lead a healthy, active lifestyle.</p>
+    </section>
+
+    <section id="skills" class="container">
+        <h2>Skills</h2>
+        <div class="box">
+            <h3>Programming Languages</h3>
+            <p>Python, JavaScript, Java, SQL</p>
+        </div>
+        <div class="box">
+            <h3>Frameworks</h3>
+            <p>React, Vue, Angular</p>
+        </div>
+        <div class="box">
+            <h3>Web Technologies</h3>
+            <p>HTML, CSS</p>
+        </div>
+    </section>
+
+    <section id="interests" class="dark container">
+        <h2>Interests</h2>
+        <div class="box">
+            <h3>Startups & Finance</h3>
+            <p>I am keenly interested in the world of startups and finance, always looking for new innovations and trends.</p>
+        </div>
+        <div class="box">
+            <h3>Running</h3>
+            <p>I am an avid runner and have completed a marathon of 42km. Running keeps me fit and focused.</p>
+        </div>
+        <div class="box">
+            <h3>Photography</h3>
+            <p>Photography is a passion of mine. I love capturing moments and scenes that tell a story.</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>Contact Information</p>
+            <p>Email: olegs@example.com</p>
+        </div>
+    </footer>
+</body>
+</html>

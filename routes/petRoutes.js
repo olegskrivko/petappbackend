@@ -9,6 +9,7 @@ const {
 const petController = require("../controllers/petController");
 const authenticateJWT = require("../middlewares/authentication/auth");
 const commentRoutes = require("./commentRoutes"); // Add this line
+// const fileUpload = require("../middlewares/fileUpload");
 
 // Get all pets
 router.get("/", petController.getPets);
@@ -20,6 +21,7 @@ router.get("/:id", petController.getPetById);
 router.post(
   "/",
   authenticateJWT,
+  // fileUpload.single("image"),
   validateCreatePet,
   validateRequest,
   petController.createPet

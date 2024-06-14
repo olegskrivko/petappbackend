@@ -9,6 +9,8 @@ const routes = require("./routes/index");
 const i18next = require("./config/i18nConfig");
 const i18nextMiddleware = require("i18next-express-middleware");
 //const i18nextMiddleware = require("i18next-http-middleware"); // Import i18next middleware
+const swaggerUi = require("swagger-ui-express");
+const specs = require("./config/swaggerConfig");
 
 // Load environment variables
 if (process.env.NODE_ENV !== "production") {
@@ -38,7 +40,9 @@ app.use(configurePassport().initialize());
 // i18next middleware for handling translations
 app.use(i18nextMiddleware.handle(i18next)); // Add i18next middleware
 
-// Routes
+// Serve Swagger UI
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 app.use("/api", routes); // Mount API routes
 
 // Connect to MongoDB

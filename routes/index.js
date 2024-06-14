@@ -2,9 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const petRoutes = require("./petRoutes");
+const optionRoutes = require("./optionRoutes");
 // const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
 const authenticateJWT = require("../middlewares/authentication/auth");
+// const swaggerUiApp = require("./swagger");
 // const {
 //   authenticateToken,
 //   isAuthenticated,
@@ -15,7 +17,10 @@ const authenticateJWT = require("../middlewares/authentication/auth");
 // router.use("/recipes", authenticateToken, isAuthenticated, recipeRoutes);
 // router.use("/how-to", howToRoutes);
 // router.use("/users", authenticateJWT, userRoutes);
+router.use("/options", optionRoutes);
 router.use("/pets", petRoutes);
 router.use("/auth", authRoutes);
+// Routes
+// router.use("/api-docs", swaggerUiApp); // Mount Swagger UI
 
 module.exports = router;
