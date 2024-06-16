@@ -1,3 +1,351 @@
 {
-  "welcome": "Laipni lūdzam"
+  "selectOptions": {
+    "initialStatusOptions": [
+      { "value": "1", "label": "Missing" },
+      { "value": "2", "label": "Found" },
+      { "value": "3", "label": "Seen" }
+    ],
+    "categoryOptions": [
+      { "value": "1", "label": "Dog" },
+      { "value": "2", "label": "Cat" },
+      { "value": "3", "label": "Cow" },
+      { "value": "4", "label": "Horse" }
+    ],
+    "sizeOptions": [
+      { "value": "0", "label": "N/A" },
+      { "value": "1", "label": "Small" },
+      { "value": "2", "label": "Medium" },
+      { "value": "3", "label": "Large" }
+    ],
+    "genderOptions": [
+      { "value": 0, "label": "N/A" },
+      { "value": 1, "label": "Male" },
+      { "value": 2, "label": "Female" }
+    ],
+    "behaviorOptions": [
+      { "value": "0", "label": "N/A" },
+      { "value": "1", "label": "Friendly" },
+      { "value": "2", "label": "Aggressive" },
+      { "value": "3", "label": "Protective" },
+      { "value": "4", "label": "Playful" },
+      { "value": "5", "label": "Calm" },
+      { "value": "6", "label": "Shy" }
+    ],
+    "ageOptions": {
+      "1": [
+        { "value": "0", "label": "N/A" },
+        { "value": "1", "label": "Puppy" },
+        { "value": "2", "label": "Adolescent" },
+        { "value": "3", "label": "Adult" },
+        { "value": "4", "label": "Senior" }
+      ],
+      "2": [
+        { "value": "0", "label": "N/A" },
+        { "value": "1", "label": "Kitten" },
+        { "value": "2", "label": "Adolescent" },
+        { "value": "3", "label": "Adult" },
+        { "value": "4", "label": "Senior" }
+      ],
+      "3": [
+        { "value": "0", "label": "N/A" },
+        { "value": "1", "label": "Calf" },
+        { "value": "2", "label": "Adolescent" },
+        { "value": "3", "label": "Adult" },
+        { "value": "4", "label": "Senior" }
+      ],
+      "4": [
+        { "value": "0", "label": "N/A" },
+        { "value": "1", "label": "Foal" },
+        { "value": "2", "label": "Adolescent" },
+        { "value": "3", "label": "Adult" },
+        { "value": "4", "label": "Senior" }
+      ]
+    },
+    "breedOptions": {
+      "1": [
+        { "value": "0", "label": "Labrador" },
+        { "value": "1", "label": "Labrador" },
+        { "value": "2", "label": "Bulldog" },
+        { "value": "3", "label": "Poodle" },
+        { "value": "4", "label": "Beagle" },
+        { "value": "5", "label": "Rottweiler" },
+        { "value": "6", "label": "German Shepherd" },
+        { "value": "7", "label": "Golden Retriever" },
+        { "value": "8", "label": "Dachshund" },
+        { "value": "9", "label": "Chihuahua" },
+        { "value": "10", "label": "Boxer" },
+        { "value": "11", "label": "Schnauzer" },
+        { "value": "12", "label": "Pomeranian" },
+        { "value": "13", "label": "Husky" },
+        { "value": "14", "label": "Maltese" },
+        { "value": "15", "label": "Yorkshire Terrier" },
+        { "value": "16", "label": "Pug" },
+        { "value": "17", "label": "Shih Tzu" },
+        { "value": "18", "label": "Doberman" },
+        { "value": "19", "label": "Mastiff" },
+        { "value": "20", "label": "Great Dane" },
+        { "value": "21", "label": "Cocker Spaniel" },
+        { "value": "22", "label": "Border Collie" },
+        { "value": "23", "label": "Australian Shepherd" },
+        { "value": "24", "label": "Siberian Husky" },
+        { "value": "25", "label": "Dalmatian" },
+        { "value": "26", "label": "Weimaraner" },
+        { "value": "27", "label": "Pointer" },
+        { "value": "28", "label": "Vizsla" },
+        { "value": "29", "label": "Setter" },
+        { "value": "30", "label": "Spaniel" },
+        { "value": "31", "label": "Terrier" },
+        { "value": "32", "label": "Hound" }
+      ],
+      "2": [
+        { "value": "0", "label": "N/A" },
+        { "value": "1", "label": "Siamese" },
+        { "value": "2", "label": "Persian" },
+        { "value": "3", "label": "Maine Coon" },
+        { "value": "4", "label": "Ragdoll" },
+        { "value": "5", "label": "Bengal" },
+        { "value": "6", "label": "British Shorthair" },
+        { "value": "7", "label": "Sphynx" },
+        { "value": "8", "label": "Scottish Fold" },
+        { "value": "9", "label": "Abyssinian" },
+        { "value": "10", "label": "Birman" },
+        { "value": "11", "label": "American Shorthair" },
+        { "value": "12", "label": "Oriental" },
+        { "value": "13", "label": "Devon Rex" },
+        { "value": "14", "label": "Russian Blue" },
+        { "value": "15", "label": "Norwegian Forest Cat" },
+        { "value": "16", "label": "Siberian" },
+        { "value": "17", "label": "Burmese" },
+        { "value": "18", "label": "Tonkinese" },
+        { "value": "19", "label": "Egyptian Mau" },
+        { "value": "20", "label": "Chartreux" }
+      ],
+      "3": [
+        { "value": "0", "label": "N/A" },
+        { "value": "1", "label": "Holstein" },
+        { "value": "2", "label": "Angus" },
+        { "value": "3", "label": "Hereford" },
+        { "value": "4", "label": "Jersey" },
+        { "value": "5", "label": "Charolais" },
+        { "value": "6", "label": "Simmental" },
+        { "value": "7", "label": "Limousin" },
+        { "value": "8", "label": "Brahman" },
+        { "value": "9", "label": "Texas Longhorn" },
+        { "value": "10", "label": "Guernsey" }
+      ],
+      "4": [
+        { "value": "0", "label": "N/A" },
+        { "value": "1", "label": "Arabian" },
+        { "value": "2", "label": "Thoroughbred" },
+        { "value": "3", "label": "Quarter Horse" },
+        { "value": "4", "label": "Clydesdale" },
+        { "value": "5", "label": "Friesian" },
+        { "value": "6", "label": "Appaloosa" },
+        { "value": "7", "label": "Paint" },
+        { "value": "8", "label": "Shire" },
+        { "value": "9", "label": "Mustang" },
+        { "value": "10", "label": "Andalusian" }
+      ]
+    },
+    "healthInformationOptions": [
+      { "value": "1", "label": "Healthy" },
+      { "value": "2", "label": "Injured" },
+      { "value": "3", "label": "Sick" },
+      { "value": "2", "label": "Malnourished" },
+      { "value": "3", "label": "Blind" },
+      { "value": "2", "label": "Deaf" },
+      { "value": "3", "label": "Mobility Issues" },
+      { "value": "2", "label": "Deceased" }
+    ],
+    "markingOptions": [
+      { "value": "1", "label": "Solid" },
+      { "value": "2", "label": "Striped" },
+      { "value": "3", "label": "Spotted" },
+      { "value": "4", "label": "Patched" },
+      { "value": "5", "label": "Marbled" }
+    ],
+    "colorOptions": [
+      { "value": "#000000", "label": "Black" },
+      { "value": "#BEBEBE", "label": "Gray" },
+      { "value": "#f7f7f7", "label": "White" },
+      { "value": "#FFF1B9", "label": "Cream" },
+      { "value": "#FCDC5C", "label": "Yellow" },
+      { "value": "#FFA500", "label": "Golden" },
+      { "value": "#C37C4D", "label": "Brown" },
+      { "value": "#A71A20", "label": "Red" },
+      { "value": "#BA97AA", "label": "Lilac" },
+      { "value": "#1A355E", "label": "Blue" },
+      { "value": "#5F6F52", "label": "Green" },
+      { "value": "#BDB76B", "label": "Khaki" },
+      { "value": "#E5DECA", "label": "Beige" },
+      { "value": "#D2B48C", "label": "Tan" },
+      { "value": "#E5AA70", "label": "Fawn" },
+      { "value": "#954535", "label": "Chestnut" }
+    ],
+    "phoneCodeOptions": [
+      { "value": "0", "label": "N/A" },
+      { "value": "+371", "label": "+371" },
+      { "value": "+372", "label": "+372" },
+      { "value": "+370", "label": "+370" }
+    ]
+  },
+  "formTitles": {
+    "petDetails": "Dzīvnieka informācija",
+    "healthInformation": "Health Information",
+    "petLocation": "Pet Location",
+    "markings": "Does the pet have markings?",
+    "mainColor": "Main Color",
+    "contactInformation": "Contact Information",
+    "additionalHealthDetails": "Additional Health Details",
+    "markingColors": "Marking Colors",
+    "datetime": "Date and Time",
+    "uploadFile": "Upload File"
+  },
+  "sectionTitles": {
+    "ownerDetails": "Owner Details",
+    "emergencyContacts": "Emergency Contacts",
+    "vaccinationRecords": "Vaccination Records",
+    "medicalHistory": "Medical History"
+  },
+  "dialogTitles": {
+    "confirmation": "Confirmation",
+    "warning": "Warning",
+    "success": "Success",
+    "failure": "Failure"
+  },
+  "notificationTitles": {
+    "newMessage": "New Message",
+    "systemAlert": "System Alert",
+    "updateAvailable": "Update Available",
+    "reminder": "Reminder"
+  },
+  "widgetTitles": {
+    "recentActivities": "Recent Activities",
+    "statistics": "Statistics",
+    "quickLinks": "Quick Links",
+    "calendar": "Calendar"
+  },
+  "paragraphTitles": {
+    "monthlyReport": "Monthly Report",
+    "annualSummary": "Annual Summary",
+    "userActivity": "User Activity",
+    "financialOverview": "Financial Overview"
+  },
+  "pageTitles": {
+    "pawclix": "PawClix",
+    "lostPetReunionsOneClickAway": "Lost Pet Reunions, One Click Away",
+    "ourGoal": "Our Goal",
+    "reportAPet": "Report a Pet",
+    "contactUs": "Contact Us",
+    "leaveYourFeedback": "Leave Your Feedback",
+    "supportOurProject": "Support Our Project",
+    "joinOurMission": "Join Our Mission",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "dataProtectionPolicy": "Data Protection Policy",
+    "disclaimer": "Disclaimer",
+    "communityGuidelines": "Community Guidelines"
+  },
+  "modalTitles": {
+    "deleteConfirmation": "Delete Confirmation",
+    "updateSuccess": "Update Successful",
+    "error": "Error",
+    "info": "Information"
+  },
+  "formLabels": {
+    "initialStatus": "Status",
+    "type": "Type",
+    "identifier": "Identifier",
+    "size": "Size",
+    "gender": "Gender",
+    "behavior": "Behavior",
+    "age": "Age",
+    "breed": "Breed",
+    "healthInformation": "Health Information",
+    "additionalHealthDetails": "Additional Health Details",
+    "petLocation": "Pet Location",
+    "markings": "Pet Markings",
+    "mainColor": "Main Color",
+    "markingColors": "Marking Colors",
+    "datetime": "Date and Time",
+    "uploadFile": "Upload File",
+    "phoneCode": "Code",
+    "phoneNumber": "Phone",
+    "email": "Email",
+    "notes": "Notes",
+    "updatedStatus": "Updated Status",
+    "updatedStatusDescription": "Updated Status Description"
+  },
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete"
+  },
+  "links": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contactUs": "Contact Us"
+  },
+  "footerLinks": {
+    "about": "About",
+    "pets": "Pets",
+    "petServices": "Pet Services",
+    "virtualPetTrainingClasses": "Virtual Pet Training Classes",
+    "communityForums": "Community Forums",
+    "emergencyPetAlerts": "Emergency Pet Alerts",
+    "petCareGuide": "Pet Care Guide",
+    "petCompatibilityQuiz": "Pet Compatibility Quiz",
+    "lostPetPreventionTips": "Lost Pet Prevention Tips",
+    "guideToRetrievingLostPets": "Guide To Retrieving Lost Pets",
+    "adoptDoNotShop": "Adopt, Don't Shop",
+    "howTo": "How To",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "dataProtectionPolicy": "Data Protection Policy",
+    "disclaimer": "Disclaimer",
+    "communityGuidelines": "Community Guidelines",
+    "contact": "Contact",
+    "feedback": "Feedback",
+    "support": "Support",
+    "partners": "Partners",
+    "social Media": "Social Media",
+    "sponsors": "Sponsors"
+  },
+  "altText": {
+    "logo": "Company Logo",
+    "petImage": "Pet Image"
+  },
+  "navigation": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "petSearch": "Pet Search",
+    "myProfile": "My Profile"
+  },
+  "validationMessages": {
+    "required": "This field is required.",
+    "invalidEmail": "Please enter a valid email address.",
+    "passwordMismatch": "Passwords do not match."
+  },
+  "notifications": {
+    "petAddedSuccess": "Pet added successfully.",
+    "errorOccurred": "An error occurred. Please try again."
+  },
+  "placeholders": {
+    "searchPets": "Search for pets...",
+    "enterEmail": "Enter your email address"
+  },
+  "tooltips": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "moreInfo": "More information"
+  },
+  "miscellaneous": {
+    "loading": "Loading...",
+    "noResultsFound": "No results found.",
+    "pleaseWait": "Please wait..."
+  }
 }
