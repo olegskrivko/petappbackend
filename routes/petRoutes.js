@@ -11,6 +11,12 @@ const authenticateJWT = require("../middlewares/authentication/auth");
 const commentRoutes = require("./commentRoutes"); // Add this line
 // const fileUpload = require("../middlewares/fileUpload");
 
+const multer = require("multer");
+// const cloudinary = require("../config/cloudinaryConfig");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 // Get all pets
 router.get("/", petController.getPets);
 
@@ -21,6 +27,7 @@ router.get("/:id", petController.getPetById);
 router.post(
   "/",
   authenticateJWT,
+  upload.single("image"),
   // fileUpload.single("image"),
   validateCreatePet,
   validateRequest,

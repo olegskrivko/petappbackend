@@ -1,6 +1,30 @@
 // controllers/petController.js
 const Pet = require("../models/petModel");
 const User = require("../models/userModel");
+const { promisify } = require("util");
+const streamifier = require("streamifier");
+
+const multer = require("multer");
+const cloudinary = require("../config/cloudinaryConfig");
+
+// Promisify the upload stream
+const uploadStream = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        resource_type: "image",
+        folder: "pets",
+      },
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(result);
+      }
+    );
+    streamifier.createReadStream(fileBuffer).pipe(stream);
+  });
+};
 
 // Get all pets
 async function getPets(req, res) {
@@ -49,9 +73,9 @@ async function createPet(req, res) {
       health,
       healthDetails,
       location,
-      mainColor,
-      markingPattern,
-      markingColors,
+      // mainColor,
+      // markingPattern,
+      // markingColors,
       date,
       time,
       mainImage,
@@ -77,7 +101,38 @@ async function createPet(req, res) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Handle image upload to Cloudinary
+    // let mainImageUrl = null;
+    // if (req.file) {
+    //   const result = await cloudinary.uploader
+    //     .upload_stream(
+    //       {
+    //         resource_type: "image",
+    //         folder: "pets",
+    //       },
+    //       (error, result) => {
+    //         if (error) {
+    //           throw new Error("Failed to upload image to Cloudinary");
+    //         }
+    //         mainImageUrl = result.secure_url;
+    //       }
+    //     )
+    //     .end(req.file.buffer);
+    // }
+
+    // Handle image upload to Cloudinary
+    let mainImageUrl = null;
+    if (req.file) {
+      try {
+        const result = await uploadStream(req.file.buffer);
+        mainImageUrl = result.secure_url;
+      } catch (error) {
+        throw new Error("Failed to upload image to Cloudinary");
+      }
+    }
+
     const clientData = req.body;
+    console.log("mainImageUrl", mainImageUrl);
     console.log("clientData", clientData);
     // Extract latitude and longitude from petLocation
     const { lat, lng } = location;
@@ -98,12 +153,12 @@ async function createPet(req, res) {
         type: "Point",
         coordinates: [lng, lat],
       },
-      mainColor,
-      markingPattern,
-      markingColors,
+      // mainColor,
+      // markingPattern,
+      // markingColors,
       date,
       time,
-      mainImage,
+      mainImage: mainImageUrl,
       phoneCode,
       phone,
       email,

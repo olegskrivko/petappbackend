@@ -5,7 +5,7 @@ const Pet = require("../models/petModel");
 
 exports.createComment = async (req, res) => {
   try {
-    const { message, author, location, petId } = req.body;
+    const { message, author, image, location, petId } = req.body;
 
     console.log("Request body:", req.body);
     console.log("Message:", message);
@@ -32,6 +32,7 @@ exports.createComment = async (req, res) => {
     const comment = await Comment.create({
       text: message,
       petId: existingPet._id,
+      image,
       author: existingUser._id,
       location: receivedLocation,
     });
