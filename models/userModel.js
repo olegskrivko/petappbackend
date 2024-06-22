@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
     },
     defaultLocation: {
       type: locationSchema,
-      required: true,
+      // required: true,
     },
     phone: {
       type: String,
