@@ -1,0 +1,62 @@
+// const Pet = require("../models/Pet");
+// const Comment = require("../models/Comment");
+const User = require("../models/userModel");
+
+const addFavorite = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const petId = req.params.petId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!user.favoritedPets.includes(petId)) {
+      user.favoritedPets.push(petId);
+      await user.save();
+      return res
+        .status(200)
+        .json({
+          message: "Pet added to favorites",
+          favoritedPets: user.favoritedPets,
+        });
+    } else {
+      return res.status(400).json({ message: "Pet is already in favorites" });
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
+  }
+};
+
+const removeFavorite = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const petId = req.params.petId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.favoritedPets = user.favoritedPets.filter(
+      (favPetId) => favPetId !== petId
+    );
+    await user.save();
+
+    return res
+      .status(200)
+      .json({
+        message: "Pet removed from favorites",
+        favoritedPets: user.favoritedPets,
+      });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { addFavorite, removeFavorite };

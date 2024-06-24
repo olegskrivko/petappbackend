@@ -92,6 +92,12 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    favoritedPets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pet",
+      },
+    ],
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,

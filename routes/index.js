@@ -5,7 +5,7 @@ const petRoutes = require("./petRoutes");
 const optionRoutes = require("./optionRoutes");
 const translationRoutes = require("./translationRoutes");
 
-// const userRoutes = require("./userRoutes");
+const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
 const authenticateJWT = require("../middlewares/authentication/auth");
 // const swaggerUiApp = require("./swagger");
@@ -23,6 +23,7 @@ router.use("/translations", translationRoutes);
 router.use("/options", optionRoutes);
 router.use("/pets", petRoutes);
 router.use("/auth", authRoutes);
+router.use("/users", userRoutes);
 // Routes
 // router.use("/api-docs", swaggerUiApp); // Mount Swagger UI
 

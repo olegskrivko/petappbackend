@@ -1,9 +1,16 @@
-// const express = require("express");
-// const { registerUser, loginUser } = require("../controllers/authController");
+const express = require("express");
+const router = express.Router();
+const userController = require("../controllers/userController");
+const authenticateJWT = require("../middlewares/authentication/auth");
+router.put(
+  "/users/:userId/favorites/:petId/add",
 
-// const router = express.Router();
+  userController.addFavorite
+);
+router.put(
+  "/users/:userId/favorites/:petId/remove",
 
-// router.post("/register", registerUser);
-// router.post("/login", loginUser);
+  userController.removeFavorite
+);
 
-// module.exports = router;
+module.exports = router;
