@@ -4,7 +4,7 @@ const router = express.Router();
 const petRoutes = require("./petRoutes");
 const optionRoutes = require("./optionRoutes");
 const translationRoutes = require("./translationRoutes");
-
+const articleRoutes = require("./articleRoutes");
 const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
 const authenticateJWT = require("../middlewares/authentication/auth");
@@ -24,6 +24,7 @@ router.use("/options", optionRoutes);
 router.use("/pets", petRoutes);
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
+router.use("/articles", articleRoutes);
 // Routes
 // router.use("/api-docs", swaggerUiApp); // Mount Swagger UI
 
