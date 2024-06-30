@@ -6,6 +6,7 @@ const streamifier = require("streamifier");
 
 const multer = require("multer");
 const cloudinary = require("../config/cloudinaryConfig");
+const { log } = require("console");
 
 // Promisify the upload stream
 const uploadStream = (fileBuffer) => {
@@ -55,91 +56,33 @@ async function getPets(req, res) {
       colors,
       distance,
       patterns,
+      userLocation,
+      userCurrentLocation,
       // user,
       // recipeTitle,
-      // // recipeAuthor,
-      // totalTime,
-      // // hasReviews,
-      // difficulties,
-      // minimumScore,
-      // cookingMethods,
-      // meals,
-      // diets,
-      // categories,
-      // cuisines,
-      // // occasions,
-      // includedIngredients,
-      // excludedIngredients,
     } = req.query;
     console.log("Query Parameters:", req.query);
 
     const filters = {};
 
-    // Add filters based on query parameters
-    // if (recipeTitle) {
-    //   console.log("recipeTitle", recipeTitle);
-    //   filters.title = { $regex: new RegExp(recipeTitle, "i") };
-    // }
+    if (userCurrentLocation) {
+      const [userLatitude, userLongitude] = userCurrentLocation
+        .split(",")
+        .map((coord) => parseFloat(coord));
 
-    // Add filter for recipes with reviews
-    // if (hasReviews === "true") {
-    //   filters.reviews = { $exists: true, $ne: [] }; // Filter recipes with non-empty reviews array
-    // }
+      if (!isNaN(userLatitude) && !isNaN(userLongitude) && distance) {
+        // Convert distance to radians (MongoDB requires distances in radians)
+        const maxDistance = distance / 6371; // Earth's radius in kilometers (6371 km)
 
-    // Add filter for difficulty
-    // if (difficulties) {
-    //   // 10 signifies that the numbers should be parsed as base-10 (decimal) integers
-    //   // Convert the difficulty string to an array of integers
-    //   const difficultyLevels = difficulties
-    //     .split(",")
-    //     .map((level) => parseInt(level.trim(), 10));
+        filters.location = {
+          $geoWithin: {
+            $centerSphere: [[userLongitude, userLatitude], maxDistance],
+          },
+        };
+      }
+    }
 
-    //   // Add the difficulty filter to the query
-    //   filters.difficulty = { $in: difficultyLevels };
-    // }
-
-    // Add filter for meals
-    // if (meals) {
-    //   const mealNames = meals.split(",").map((meal) => meal.trim());
-    //   // Find the _id values of meals based on their names
-    //   const mealIds = await Meal.find({ name: { $in: mealNames } }, "_id");
-    //   // Extract the _id values from the fetched meals
-    //   const mealIdValues = mealIds.map((meal) => meal._id);
-    //   filters.meals = { $in: mealIdValues };
-    // }
-
-    // Add filter for diets
-    // if (diets) {
-    //   const dietNames = diets.split(",").map((diet) => diet.trim());
-    //   // Find the _id values of diets based on their names
-    //   const dietIds = await Diet.find({ name: { $in: dietNames } }, "_id");
-    //   // Extract the _id values from the fetched diets
-    //   const dietIdValues = dietIds.map((diet) => diet._id);
-    //   filters.diets = { $in: dietIdValues };
-    // }
-
-    // Add filter for cuisines
-    // if (cuisines) {
-    //   const cuisineNames = cuisines.split(",").map((cuisine) => cuisine.trim());
-    //   // Find the _id values of cuisines based on their names
-    //   const cuisineIds = await Cuisine.find(
-    //     { name: { $in: cuisineNames } },
-    //     "_id"
-    //   );
-    //   // Extract the _id values from the fetched cuisines
-    //   const cuisineIdValues = cuisineIds.map((cuisine) => cuisine._id);
-    //   filters.cuisines = { $in: cuisineIdValues };
-    // }
-
-    // Add filter for tastes
-    // if (tastes) {
-    //   const tasteNames = tastes.split(",").map((taste) => taste.trim());
-    //   // Find the _id values of tastes based on their names
-    //   const tasteIds = await Taste.find({ name: { $in: tasteNames } }, "_id");
-    //   // Extract the _id values from the fetched tastes
-    //   const tasteIdValues = tasteIds.map((taste) => taste._id);
-    //   filters.tastes = { $in: tasteIdValues };
-    // }
+    //console.log("userLocation", userLocation.latitude, userLocation.longitude);
 
     if (categories) {
       const categoryNames = categories
@@ -220,81 +163,6 @@ async function getPets(req, res) {
     //     },
     //   };
     // }
-
-    // Add filter for cooking methods
-    // if (cookingMethods) {
-    //   const cookingMethodNames = cookingMethods
-    //     .split(",")
-    //     .map((cookingMethod) => cookingMethod.trim());
-    //   // Find the _id values of cooking methods based on their names
-    //   const cookingMethodIds = await CookingMethod.find(
-    //     { name: { $in: cookingMethodNames } },
-    //     "_id"
-    //   );
-    //   // Extract the _id values from the fetched cooking methods
-    //   const cookingMethodIdValues = cookingMethodIds.map(
-    //     (cookingMethod) => cookingMethod._id
-    //   );
-    //   filters.cookingMethods = { $in: cookingMethodIdValues };
-    // }
-
-    // Add filter for total time
-    // if (totalTime) {
-    //   // Split the totalTime string into an array containing min and max times
-    //   const [minTime, maxTime] = totalTime.split(",");
-
-    //   // Convert the min and max times to numbers
-    //   const minTimeNum = parseInt(minTime);
-    //   const maxTimeNum = maxTime === "Infinity" ? Infinity : parseInt(maxTime);
-
-    //   // Add the totalTime filter to the query
-    //   filters.totalTime = { $gte: minTimeNum, $lte: maxTimeNum };
-    // }
-
-    // Add filter for included ingredients
-
-    // Inside the async function getAllRecipes
-    // Add filter for included ingredients
-    // if (includedIngredients) {
-    //   const includedIngredientIds = includedIngredients
-    //     .split(",")
-    //     .map((ingredientId) => ingredientId.trim());
-
-    //   // Add the filter for included ingredients
-    //   filters["ingredients.items.ingredient"] = { $in: includedIngredientIds };
-    // }
-
-    // // Add filter for excluded ingredients
-    // if (excludedIngredients) {
-    //   const excludedIngredientIds = excludedIngredients
-    //     .split(",")
-    //     .map((ingredientId) => ingredientId.trim());
-
-    //   // Add the filter for excluded ingredients
-    //   filters["ingredients.items.ingredient"] = { $nin: excludedIngredientIds };
-    // }
-
-    // Add filter for included ingredients
-    // if (includedIngredients) {
-    //   const includedIngredientIds = includedIngredients
-    //     .split(",")
-    //     .map((ingredientId) => ingredientId.trim());
-
-    //   // Add the filter for included ingredients
-    //   filters["ingredients.items.ingredient"] = { $all: includedIngredientIds };
-    // }
-
-    // Add filter for excluded ingredients
-    // if (excludedIngredients) {
-    //   const excludedIngredientIds = excludedIngredients
-    //     .split(",")
-    //     .map((ingredientId) => ingredientId.trim());
-
-    //   // Add the filter for excluded ingredients
-    //   filters["ingredients.items.ingredient"] = { $nin: excludedIngredientIds };
-    // }
-
-    // You can add more filters based on your needs
 
     // Fetch recipes with pagination and filtering
     // const pets = await Pet.find(filters, "title coverImage totalTime")
