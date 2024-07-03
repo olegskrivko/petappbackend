@@ -19,6 +19,21 @@ const favoritedPets = async (req, res) => {
   }
 };
 
+const ownedPets = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId).populate("ownedPets");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user.ownedPets);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
+  }
+};
+
 const addFavorite = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -46,32 +61,6 @@ const addFavorite = async (req, res) => {
   }
 };
 
-// const removeFavorite = async (req, res) => {
-//   try {
-//     const userId = req.params.userId;
-//     const petId = req.params.petId;
-
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
-
-//     user.favoritedPets = user.favoritedPets.filter(
-//       (favPetId) => favPetId !== petId
-//     );
-//     await user.save();
-
-//     return res.status(200).json({
-//       message: "Pet removed from favorites",
-//       favoritedPets: user.favoritedPets,
-//     });
-//   } catch (error) {
-//     return res
-//       .status(500)
-//       .json({ message: "Server error", error: error.message });
-//   }
-// };
-
 const removeFavorite = async (req, res) => {
   try {
     const { userId, petId } = req.params;
@@ -94,4 +83,4 @@ const removeFavorite = async (req, res) => {
   }
 };
 
-module.exports = { favoritedPets, addFavorite, removeFavorite };
+module.exports = { favoritedPets, ownedPets, addFavorite, removeFavorite };

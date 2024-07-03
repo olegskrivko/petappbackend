@@ -5,6 +5,8 @@ const authenticateJWT = require("../middlewares/authentication/auth");
 
 router.get("/:userId/favorites", authenticateJWT, userController.favoritedPets);
 
+router.get("/:userId/ownedPets", authenticateJWT, userController.ownedPets);
+
 router.put(
   "/:userId/favorites/:petId/add",
 

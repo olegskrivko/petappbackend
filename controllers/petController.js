@@ -340,18 +340,39 @@ async function createPet(req, res) {
 }
 
 // Update an existing pet
-async function updatePet(req, res) {
-  const { id } = req.params;
-  const { name } = req.body;
+// async function updatePet(req, res) {
+//   const { id } = req.params;
+//   const { name } = req.body;
 
+//   try {
+//     const updatedPet = await Pet.findByIdAndUpdate(id, { name }, { new: true });
+//     res.status(200).json(updatedPet);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// }
+
+const updatePet = async (req, res) => {
   try {
-    const updatedPet = await Pet.findByIdAndUpdate(id, { name }, { new: true });
-    res.status(200).json(updatedPet);
+    const petId = req.params.petId;
+    const updates = req.body;
+
+    const pet = await Pet.findByIdAndUpdate(petId, updates, { new: true });
+
+    if (!pet) {
+      return res.status(404).json({ message: "Pet not found" });
+    }
+
+    res.json(pet);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
-}
+};
+
+module.exports = { updatePet };
 
 // Delete a pet
 async function deletePet(req, res) {

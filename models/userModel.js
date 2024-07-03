@@ -98,6 +98,12 @@ const userSchema = new mongoose.Schema(
         ref: "Pet",
       },
     ],
+    ownedPets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pet",
+      },
+    ],
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,
