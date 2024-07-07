@@ -2,16 +2,45 @@
 const Comment = require("../models/commentModel");
 const User = require("../models/userModel");
 const Pet = require("../models/petModel");
+const cloudinary = require("../config/cloudinaryConfig");
+const streamifier = require("streamifier");
+
+// Promisify the upload stream
+const uploadStream = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        resource_type: "image",
+        folder: "pets",
+      },
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(result);
+      }
+    );
+    streamifier.createReadStream(fileBuffer).pipe(stream);
+  });
+};
 
 exports.createComment = async (req, res) => {
   try {
-    const { message, author, image, location, petId } = req.body;
+    const { message, author, location, petId } = req.body;
+    let image = null;
+
+    // Check if file is uploaded
+    if (req.file) {
+      // Upload image to Cloudinary using stream
+      const result = await uploadStream(req.file.buffer);
+      image = result.secure_url;
+    }
 
     console.log("Request body:", req.body);
     console.log("Message:", message);
     console.log("Pet ID:", petId);
     console.log("location", location);
-
+    console.log("image", image);
     // Verify that the userId exists in the database
     const existingUser = await User.findById(author);
     if (!existingUser) {

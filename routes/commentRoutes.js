@@ -4,8 +4,19 @@ const router = express.Router({ mergeParams: true });
 const commentController = require("../controllers/commentController");
 const authenticateJWT = require("../middlewares/authentication/auth");
 
+const multer = require("multer");
+// const cloudinary = require("../config/cloudinaryConfig");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 // Post a new comment
-router.post("/", authenticateJWT, commentController.createComment);
+router.post(
+  "/",
+  authenticateJWT,
+  upload.single("image"),
+  commentController.createComment
+);
 
 // Get all comments for a pet
 router.get("/", commentController.getComments);
