@@ -12,11 +12,6 @@ exports.createComment = async (req, res) => {
     console.log("Pet ID:", petId);
     console.log("location", location);
 
-    // Adjust to match the model
-    const receivedLocation = {
-      type: "Point",
-      coordinates: [location.lat, location.lng],
-    };
     // Verify that the userId exists in the database
     const existingUser = await User.findById(author);
     if (!existingUser) {
@@ -27,6 +22,21 @@ exports.createComment = async (req, res) => {
     const existingPet = await Pet.findById(petId);
     if (!existingPet) {
       return res.status(404).json({ message: "Pet not found" });
+    }
+
+    // Adjust to match the model
+    // const receivedLocation = {
+    //   type: "Point",
+    //   coordinates: [location.lat, location.lng],
+    // };
+
+    // Prepare the location if it's provided
+    let receivedLocation = null;
+    if (location) {
+      receivedLocation = {
+        type: "Point",
+        coordinates: [location.lat, location.lng],
+      };
     }
 
     const comment = await Comment.create({
