@@ -332,6 +332,10 @@ async function createPet(req, res) {
     // Saving the new Pet to the database
     const savedPet = await pet.save();
 
+    // Add the pet ID to the user's ownedPets array
+    existingUser.ownedPets.push(savedPet._id);
+    await existingUser.save();
+
     res.status(201).json(savedPet);
   } catch (error) {
     console.error("Error creating pet:", error);
