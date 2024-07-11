@@ -359,8 +359,10 @@ async function createPet(req, res) {
 
 const updatePet = async (req, res) => {
   try {
-    const petId = req.params.petId;
+    const petId = req.params.id;
     const updates = req.body;
+    console.log("petId", petId);
+    console.log("updates", updates);
 
     const pet = await Pet.findByIdAndUpdate(petId, updates, { new: true });
 
