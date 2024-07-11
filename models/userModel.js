@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
   {
     avatar: {
       type: String, // URL or file path to avatar image
-      default: "path_to_default_avatar.jpg", // Default avatar path
+      default: "/avatars/default.png", // Default avatar path
     },
     firstName: {
       type: String,

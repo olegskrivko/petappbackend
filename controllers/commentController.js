@@ -72,6 +72,7 @@ exports.createComment = async (req, res) => {
       text: message,
       petId: existingPet._id,
       image,
+      avatar: existingUser.avatar,
       author: existingUser._id,
       location: receivedLocation,
     });

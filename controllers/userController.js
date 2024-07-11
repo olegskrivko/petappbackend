@@ -2,6 +2,33 @@
 // const Comment = require("../models/Comment");
 const User = require("../models/userModel");
 
+const updateUserFields = async (req, res) => {
+  const userId = req.params.userId;
+  const { country, language, phone, phoneCode } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        country,
+        language,
+        phone,
+        phoneCode,
+      },
+      { new: true } // Return updated user document
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user); // Send updated user object as response
+  } catch (error) {
+    console.error("Update user fields error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 const favoritedPets = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -83,4 +110,10 @@ const removeFavorite = async (req, res) => {
   }
 };
 
-module.exports = { favoritedPets, ownedPets, addFavorite, removeFavorite };
+module.exports = {
+  updateUserFields,
+  favoritedPets,
+  ownedPets,
+  addFavorite,
+  removeFavorite,
+};

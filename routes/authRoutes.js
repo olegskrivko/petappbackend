@@ -49,12 +49,15 @@ const {
   registerUser,
   loginUser,
   getUser,
+  deleteAccount,
 } = require("../controllers/authController");
+const authenticateJWT = require("../middlewares/authentication/auth");
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/user", getUser);
+router.delete("/delete", authenticateJWT, deleteAccount);
 
 module.exports = router;
