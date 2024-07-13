@@ -8,7 +8,7 @@ const articleRoutes = require("./articleRoutes");
 const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
 const shelterRoutes = require("./shelterRoutes");
-
+const utilityRoutes = require("./utilityRoutes");
 const authenticateJWT = require("../middlewares/authentication/auth");
 // const swaggerUiApp = require("./swagger");
 // const {
@@ -21,6 +21,8 @@ const authenticateJWT = require("../middlewares/authentication/auth");
 // router.use("/recipes", authenticateToken, isAuthenticated, recipeRoutes);
 // router.use("/how-to", howToRoutes);
 // router.use("/users", authenticateJWT, userRoutes);
+
+router.use("/utilities", utilityRoutes);
 router.use("/translations", translationRoutes);
 router.use("/options", optionRoutes);
 router.use("/pets", petRoutes);
@@ -28,6 +30,7 @@ router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
 router.use("/articles", articleRoutes);
 router.use("/shelters", shelterRoutes);
+
 // Routes
 // router.use("/api-docs", swaggerUiApp); // Mount Swagger UI
 
