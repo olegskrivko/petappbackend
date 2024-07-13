@@ -17,11 +17,10 @@ exports.getAllShelters = async (req, res) => {
 exports.createShelter = async (req, res) => {
   try {
     const {
-      slug,
       name,
       description,
       author,
-      url,
+      website,
       coverPicture,
       addressDetails,
       location,
@@ -30,13 +29,18 @@ exports.createShelter = async (req, res) => {
       services,
       tags,
     } = req.body;
+
     console.log("body", req.body);
+
+    // Generate slug from the name
+    const slug = slugify(name, { lower: true, strict: true });
+
     const newShelter = new Shelter({
-      slug,
+      slug, // Include the generated slug
       name,
       description,
       author,
-      url,
+      website,
       coverPicture,
       addressDetails,
       location,
@@ -52,7 +56,6 @@ exports.createShelter = async (req, res) => {
     res.status(500).json({ message: "Error creating shelter", error });
   }
 };
-
 // Get shelter by slug
 exports.getShelterById = async (req, res) => {
   try {

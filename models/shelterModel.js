@@ -41,11 +41,26 @@ const contactSchema = new mongoose.Schema({
 });
 
 const socialMediaSchema = new mongoose.Schema({
-  facebook: String,
-  twitter: String,
-  instagram: String,
-  linkedin: String,
-  youtube: String,
+  facebook: {
+    name: { type: String, default: "Facebook" },
+    url: String,
+  },
+  x: {
+    name: { type: String, default: "X" },
+    url: String,
+  },
+  instagram: {
+    name: { type: String, default: "Instagram" },
+    url: String,
+  },
+  linkedin: {
+    name: { type: String, default: "LinkedIn" },
+    url: String,
+  },
+  youtube: {
+    name: { type: String, default: "YouTube" },
+    url: String,
+  },
 });
 
 const shelterSchema = new mongoose.Schema({
@@ -61,7 +76,10 @@ const shelterSchema = new mongoose.Schema({
     type: String,
   },
   author: String,
-  url: String,
+  website: {
+    name: { type: String },
+    url: { type: String },
+  },
   coverPicture: {
     type: String,
   },
