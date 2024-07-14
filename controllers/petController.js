@@ -357,7 +357,7 @@ async function createPet(req, res) {
     );
     const notification = {
       contents: { en: `URGENT! Lost pet alert!` },
-      included_segments: ["Subscribed Users"],
+      included_segments: ["All"],
       web_url: `https://pawclix.com/pets/${pet._id}`,
     };
 
