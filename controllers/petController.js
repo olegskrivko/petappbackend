@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 const { promisify } = require("util");
 const streamifier = require("streamifier");
 const client = require("../config/oneSignalConfig");
-
+const OneSignal = require("onesignal-node");
 const multer = require("multer");
 const cloudinary = require("../config/cloudinaryConfig");
 const { log } = require("console");
@@ -337,16 +337,28 @@ async function createPet(req, res) {
     existingUser.ownedPets.push(savedPet._id);
     await existingUser.save();
 
+    // from chatgpt
     // Sending push notification
+    // const notification = {
+    //   contents: {
+    //     en: "A new pet has been added!",
+    //   },
+    //   included_segments: ["All"], // You can adjust this to target specific segments or users
+    //   data: {
+    //     petId: savedPet._id,
+    //     title: savedPet.identifier, // Example data payload
+    //   },
+    // };
+
+    // old code
+    const client = new OneSignal.Client(
+      process.env.oneSignal_YOUR_APP_ID,
+      process.env.oneSignal_YOUR_APP_AUTH_KEY
+    );
     const notification = {
-      contents: {
-        en: "A new pet has been added!",
-      },
-      included_segments: ["All"], // You can adjust this to target specific segments or users
-      data: {
-        petId: savedPet._id,
-        title: savedPet.identifier, // Example data payload
-      },
+      contents: { en: `URGENT! Lost pet alert!` },
+      included_segments: ["Subscribed Users"],
+      web_url: `https://pawclix.com/pets/${pet._id}`,
     };
 
     client
