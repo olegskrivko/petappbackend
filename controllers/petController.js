@@ -3,6 +3,7 @@ const Pet = require("../models/petModel");
 const User = require("../models/userModel");
 const { promisify } = require("util");
 const streamifier = require("streamifier");
+const client = require("../config/oneSignalConfig");
 
 const multer = require("multer");
 const cloudinary = require("../config/cloudinaryConfig");
@@ -335,6 +336,27 @@ async function createPet(req, res) {
     // Add the pet ID to the user's ownedPets array
     existingUser.ownedPets.push(savedPet._id);
     await existingUser.save();
+
+    // Sending push notification
+    const notification = {
+      contents: {
+        en: "A new pet has been added!",
+      },
+      included_segments: ["All"], // You can adjust this to target specific segments or users
+      data: {
+        petId: savedPet._id,
+        title: savedPet.identifier, // Example data payload
+      },
+    };
+
+    client
+      .createNotification(notification)
+      .then((response) => {
+        console.log("Notification sent successfully:", response.body);
+      })
+      .catch((error) => {
+        console.error("Error sending notification:", error);
+      });
 
     res.status(201).json(savedPet);
   } catch (error) {

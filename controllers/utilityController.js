@@ -14,8 +14,8 @@ exports.sendFeedback = async (req, res) => {
   const { subject, email, message } = req.body;
 
   const mailOptions = {
-    from: process.env.APP_EMAIL_USERNAME_TEST,
-    to: process.env.APP_EMAIL_USERNAME_TEST,
+    from: process.env.APP_EMAIL_USERNAME,
+    to: process.env.APP_EMAIL_USERNAME,
     subject: `Feedback Form: ${subject}`,
     text: `From: ${email}\n\n${message}`,
   };
