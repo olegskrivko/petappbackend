@@ -350,12 +350,113 @@ async function createPet(req, res) {
     //   },
     // };
 
+    ////////////////////////////////////////////////////////
+    // Example function to fetch user's maximum distance preference from OneSignal
+    // const getUserMaxDistance = async (userId) => {
+    //   try {
+    //     const client = new OneSignal.Client(
+    //       process.env.oneSignal_YOUR_APP_ID,
+    //       process.env.oneSignal_YOUR_APP_AUTH_KEY
+    //     );
+
+    //     // Retrieve tags for the user
+    //     const userTags = await client.getPlayerTags(userId);
+
+    //     // Assuming "distance" tag stores the user's preferred maximum distance in kilometers
+    //     const maxDistance = userTags.distance; // Adjust this based on how tags are stored
+
+    //     return maxDistance;
+    //   } catch (error) {
+    //     console.error("Error fetching user max distance:", error);
+    //     throw error;
+    //   }
+    // };
+
+    // // Example function to send notifications with dynamic distance filtering
+    // const sendNotifications = async (pet, userLocation, userId) => {
+    //   try {
+    //     // Fetch user's maximum distance preference
+    //     const userMaxDistance = await getUserMaxDistance(userId);
+
+    //     // Calculate distance between pet's location and user's location
+    //     const distanceInKm = calculateDistanceInKm(pet.location.latitude, pet.location.longitude, userLocation.latitude, userLocation.longitude);
+
+    //     // Check if the distance is within the user's preferred max distance
+    //     if (distanceInKm > userMaxDistance) {
+    //       console.log(`User is ${distanceInKm} km away, which is more than their preferred max distance of ${userMaxDistance} km. Skipping notification.`);
+    //       return;
+    //     }
+
+    //     // Calculate latitude and longitude thresholds based on user's max distance preference
+    //     const latitudeThreshold = userMaxDistance / 110.574;
+    //     const longitudeThreshold = userMaxDistance / (111.32 * Math.cos((pet.location.latitude * Math.PI) / 180));
+
+    //     // Initialize OneSignal client
+    //     const client = new OneSignal.Client(
+    //       process.env.oneSignal_YOUR_APP_ID,
+    //       process.env.oneSignal_YOUR_APP_AUTH_KEY
+    //     );
+
+    //     // Notification filters based on user's max distance preference
+    //     const filters = [
+    //       {
+    //         field: "tag",
+    //         key: "latitude",
+    //         relation: ">",
+    //         value: pet.location.latitude - latitudeThreshold,
+    //       },
+    //       { operator: "AND" },
+    //       {
+    //         field: "tag",
+    //         key: "latitude",
+    //         relation: "<",
+    //         value: pet.location.latitude + latitudeThreshold,
+    //       },
+    //       { operator: "AND" },
+    //       {
+    //         field: "tag",
+    //         key: "longitude",
+    //         relation: ">",
+    //         value: pet.location.longitude - longitudeThreshold,
+    //       },
+    //       { operator: "AND" },
+    //       {
+    //         field: "tag",
+    //         key: "longitude",
+    //         relation: "<",
+    //         value: pet.location.longitude + longitudeThreshold,
+    //       },
+    //       { operator: "AND" },
+    //       {
+    //         field: "tag",
+    //         key: "distance",
+    //         relation: "<=",
+    //         value: userMaxDistance,
+    //       },
+    //     ];
+
+    //     // Notification object to send
+    //     const notification = {
+    //       contents: { en: `URGENT! Lost pet alert!` },
+    //       included_segments: ["All"],
+    //       web_url: `https://pawclix.com/pets/${pet._id}`,
+    //       filters: filters,
+    //     };
+
+    //     // Send notification
+    //     const response = await client.createNotification(notification);
+    //     console.log("Notification sent successfully:", response.body);
+
+    //     // Handle successful notification sending
+    //     return response.body;
+    ////////////////////////////////////////////////////////
+
     // Define the geographical center and radius for targeting
     const centerLatitude = lat; // Latitude of the pet's last known location
     console.log("centerLatitude", centerLatitude);
     const centerLongitude = lng; // Longitude of the pet's last known location
     console.log("centerLongitude", centerLongitude);
-    const radiusInKilometers = 10; // Example radius in km
+    const radiusInKilometers = 20; // Example radius in km
 
     const latitudeThreshold = radiusInKilometers / 110.574; // 1 degree of latitude is approximately 110.574 km
     console.log("latitudeThreshold", latitudeThreshold);
@@ -363,6 +464,7 @@ async function createPet(req, res) {
       radiusInKilometers /
       (111.32 * Math.cos((centerLatitude * Math.PI) / 180)); // 1 degree of longitude varies based on latitude
     console.log("longitudeThreshold", longitudeThreshold);
+
     const filters = [
       {
         field: "tag",
@@ -391,6 +493,12 @@ async function createPet(req, res) {
         relation: "<",
         value: centerLongitude + longitudeThreshold,
       },
+      {
+        field: "tag",
+        key: "distance",
+        relation: "<=",
+        value: radiusInKilometers,
+      },
     ];
 
     // old code
@@ -402,7 +510,7 @@ async function createPet(req, res) {
     const notification = {
       contents: { en: `URGENT! Lost pet alert!` },
       filters: filters,
-      included_segments: ["All"],
+      // included_segments: ["All"],
       web_url: `https://pawclix.com/pets/${pet._id}`,
     };
 
