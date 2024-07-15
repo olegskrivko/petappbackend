@@ -350,13 +350,55 @@ async function createPet(req, res) {
     //   },
     // };
 
+    // Define the geographical center and radius for targeting
+    const centerLatitude = lat; // Latitude of the pet's last known location
+    const centerLongitude = lng; // Longitude of the pet's last known location
+    const radiusInKilometers = 10; // Example radius in km
+
+    const latitudeThreshold = radiusInKilometers / 110.574; // 1 degree of latitude is approximately 110.574 km
+    const longitudeThreshold =
+      radiusInKilometers /
+      (111.32 * Math.cos((centerLatitude * Math.PI) / 180)); // 1 degree of longitude varies based on latitude
+
+    const filters = [
+      {
+        field: "tag",
+        key: "latitude",
+        relation: ">",
+        value: centerLatitude - latitudeThreshold,
+      },
+      { operator: "AND" },
+      {
+        field: "tag",
+        key: "latitude",
+        relation: "<",
+        value: centerLatitude + latitudeThreshold,
+      },
+      { operator: "AND" },
+      {
+        field: "tag",
+        key: "longitude",
+        relation: ">",
+        value: centerLongitude - longitudeThreshold,
+      },
+      { operator: "AND" },
+      {
+        field: "tag",
+        key: "longitude",
+        relation: "<",
+        value: centerLongitude + longitudeThreshold,
+      },
+    ];
+
     // old code
     const client = new OneSignal.Client(
       process.env.oneSignal_YOUR_APP_ID,
       process.env.oneSignal_YOUR_APP_AUTH_KEY
     );
+
     const notification = {
       contents: { en: `URGENT! Lost pet alert!` },
+      filters: filters,
       included_segments: ["All"],
       web_url: `https://pawclix.com/pets/${pet._id}`,
     };
