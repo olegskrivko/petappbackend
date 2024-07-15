@@ -140,6 +140,7 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    oneSignalIds: { type: [String] },
   },
   { timestamps: true }
 );

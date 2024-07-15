@@ -352,14 +352,17 @@ async function createPet(req, res) {
 
     // Define the geographical center and radius for targeting
     const centerLatitude = lat; // Latitude of the pet's last known location
+    console.log("centerLatitude", centerLatitude);
     const centerLongitude = lng; // Longitude of the pet's last known location
+    console.log("centerLongitude", centerLongitude);
     const radiusInKilometers = 10; // Example radius in km
 
     const latitudeThreshold = radiusInKilometers / 110.574; // 1 degree of latitude is approximately 110.574 km
+    console.log("latitudeThreshold", latitudeThreshold);
     const longitudeThreshold =
       radiusInKilometers /
       (111.32 * Math.cos((centerLatitude * Math.PI) / 180)); // 1 degree of longitude varies based on latitude
-
+    console.log("longitudeThreshold", longitudeThreshold);
     const filters = [
       {
         field: "tag",
