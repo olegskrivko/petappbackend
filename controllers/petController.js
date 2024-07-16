@@ -452,55 +452,71 @@ async function createPet(req, res) {
     ////////////////////////////////////////////////////////
 
     // Define the geographical center and radius for targeting
-    const centerLatitude = lat; // Latitude of the pet's last known location
-    console.log("centerLatitude", centerLatitude);
-    const centerLongitude = lng; // Longitude of the pet's last known location
-    console.log("centerLongitude", centerLongitude);
+    const centerLatitude = Number(lat); // Ensure latitude is treated as a number
+    const centerLongitude = Number(lng); // Ensure longitude is treated as a number
     const radiusInKilometers = 20; // Example radius in km
 
+    // Calculate latitude and longitude thresholds
     const latitudeThreshold = radiusInKilometers / 110.574; // 1 degree of latitude is approximately 110.574 km
-    console.log("latitudeThreshold", latitudeThreshold);
     const longitudeThreshold =
       radiusInKilometers /
       (111.32 * Math.cos((centerLatitude * Math.PI) / 180)); // 1 degree of longitude varies based on latitude
-    console.log("longitudeThreshold", longitudeThreshold);
+
+    // Correctly calculate the bounding box coordinates
+    const minLatitude = centerLatitude - latitudeThreshold;
+    const maxLatitude = centerLatitude + latitudeThreshold;
+    const minLongitude = centerLongitude - longitudeThreshold;
+    const maxLongitude = centerLongitude + longitudeThreshold;
+
+    console.log("Bounding Box:");
+    console.log("Min Latitude:", minLatitude);
+    console.log("Max Latitude:", maxLatitude);
+    console.log("Min Longitude:", minLongitude);
+    console.log("Max Longitude:", maxLongitude);
 
     const filters = [
       {
         field: "tag",
         key: "latitude",
         relation: ">",
-        value: centerLatitude - latitudeThreshold,
+        value: minLatitude,
       },
       { operator: "AND" },
       {
         field: "tag",
         key: "latitude",
         relation: "<",
-        value: centerLatitude + latitudeThreshold,
+        value: maxLatitude,
       },
       { operator: "AND" },
       {
         field: "tag",
         key: "longitude",
         relation: ">",
-        value: centerLongitude - longitudeThreshold,
+        value: minLongitude,
       },
       { operator: "AND" },
       {
         field: "tag",
         key: "longitude",
         relation: "<",
-        value: centerLongitude + longitudeThreshold,
-      },
-      {
-        field: "tag",
-        key: "distance",
-        relation: "<=",
-        value: radiusInKilometers,
+        value: maxLongitude,
       },
     ];
 
+    // Add distance filter if necessary
+    filters.push(
+      { operator: "AND" },
+      {
+        field: "tag",
+        key: "distance",
+        relation: "<",
+        value: radiusInKilometers,
+      }
+    );
+
+    // Print the filters for verification
+    console.log("Filters:", filters);
     // old code
     const client = new OneSignal.Client(
       process.env.oneSignal_YOUR_APP_ID,
@@ -512,6 +528,8 @@ async function createPet(req, res) {
       filters: filters,
       // included_segments: ["All"],
       web_url: `https://pawclix.com/pets/${pet._id}`,
+      chrome_web_image: mainImageUrl, // URL of the image for web notifications
+      big_picture: mainImageUrl, // URL of the image for mobile notifications
     };
 
     client
