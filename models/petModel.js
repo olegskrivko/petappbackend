@@ -13,6 +13,18 @@ const locationSchema = new mongoose.Schema({
   },
 });
 
+const markingColorSchema = new mongoose.Schema({
+  hex: {
+    type: String,
+  },
+  label: {
+    type: String,
+
+    maxlength: 50,
+    trim: true,
+  },
+});
+
 const locationHistorySchema = new mongoose.Schema({
   date: {
     type: Date,
@@ -106,20 +118,17 @@ const petSchema = new mongoose.Schema(
       type: locationSchema,
       required: true,
     },
+
     mainColor: {
-      type: String,
-      trim: true,
-      maxlength: 50,
+      hex: { type: String },
+      label: { type: String },
     },
     markingPattern: {
       type: String,
       trim: true,
       maxlength: 50,
     },
-    markingColors: {
-      type: [String],
-      trim: true,
-    },
+    markingColors: [markingColorSchema], // Array of objects containing hex and label
     date: {
       type: String,
     },

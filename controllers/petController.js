@@ -230,9 +230,9 @@ async function createPet(req, res) {
       health,
       healthDetails,
       location,
-      // mainColor,
-      // markingPattern,
-      // markingColors,
+      mainColor,
+      markingPattern,
+      markingColors,
       date,
       time,
       mainImage,
@@ -291,6 +291,7 @@ async function createPet(req, res) {
     const clientData = req.body;
     console.log("mainImageUrl", mainImageUrl);
     console.log("clientData", clientData);
+    console.log("mainColor", mainColor.hex, mainColor.label);
     // Extract latitude and longitude from petLocation
     const { lat, lng } = location;
 
@@ -310,9 +311,13 @@ async function createPet(req, res) {
         type: "Point",
         coordinates: [lng, lat],
       },
-      // mainColor,
-      // markingPattern,
-      // markingColors,
+      mainColor: {
+        hex: mainColor.hex,
+        label: mainColor.label,
+      },
+
+      markingPattern,
+      markingColors,
       date,
       time,
       mainImage: mainImageUrl,
