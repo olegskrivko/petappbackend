@@ -199,7 +199,7 @@ async function getPetById(req, res) {
   try {
     const pet = await Pet.findById(req.params.id)
       .populate("author")
-      .populate("locationHistory.date")
+      // .populate("locationHistory.createdAt") // can cause problem because added later
       .populate("locationHistory.userId");
     if (!pet) {
       return res.status(404).json({ message: "Pet not found" });

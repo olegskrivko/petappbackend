@@ -25,26 +25,27 @@ const markingColorSchema = new mongoose.Schema({
   },
 });
 
-const locationHistorySchema = new mongoose.Schema({
-  date: {
-    type: Date,
-    default: Date.now,
+const locationHistorySchema = new mongoose.Schema(
+  {
+    location: {
+      type: locationSchema,
+      required: true,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    commentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+      required: true,
+    },
   },
-  location: {
-    type: locationSchema,
-    required: true,
-  },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  commentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment",
-    required: true,
-  },
-});
+  {
+    timestamps: true, // Automatically add `createdAt` and `updatedAt` fields
+  }
+);
 
 const petSchema = new mongoose.Schema(
   {

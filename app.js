@@ -1,6 +1,11 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const rateLimit = require("express-rate-limit"); // Limits the number of requests from a single IP to prevent abuse and brute force attacks
+const helmet = require("helmet"); // Helps secure Express apps by setting various HTTP headers
+const xss = require("xss-clean"); // Sanitizes user input to prevent cross-site scripting (XSS) attacks
+const mongoSanitize = require("express-mongo-sanitize"); // Prevents NoSQL injection attacks by sanitizing user input
+const hpp = require("hpp"); // Mitigates HTTP Parameter Pollution (HPP) attacks by sanitizing and filtering query parameters
 const { handleErrors } = require("./middlewares/error/errorHandler");
 const dotenv = require("dotenv");
 const configurePassport = require("./config/passportConfig");
@@ -19,6 +24,20 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const app = express();
+
+// Rate limiting configuration
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes window
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later.",
+});
+
+// Security middleware
+app.use(limiter); // Apply the rate limiting middleware to all requests
+app.use(helmet()); // Adds security-related HTTP headers
+app.use(xss()); // Protects against XSS attacks by sanitizing user inputs
+app.use(mongoSanitize()); // Protects against NoSQL injection by sanitizing user inputs
+app.use(hpp()); // Protects against HTTP Parameter Pollution attacks
 
 // Middleware
 app.use(
