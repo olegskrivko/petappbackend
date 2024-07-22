@@ -15,86 +15,122 @@ const crypto = require("crypto");
 // console.log(animals);
 // If needed, you can add your custom words
 const customAdjectives = [
-  "Happy",
-  "Lazy",
-  "Energetic",
-  "Playful",
-  "Curious",
-  // ... add more if needed
+  "Brave",
+  "Calm",
+  "Clever",
+  "Cool",
+  "Fast",
+  "Funny",
+  "Gentle",
+  "Jolly",
+  "Kind",
+  "Loyal",
+  "Quick",
+  "Quiet",
+  "Silly",
+  "Smart",
+  "Strong",
+  "Swift",
+  "Wise",
+  "Zany",
+  "Bold",
+  "Chill",
 ];
 
 const customColors = [
-  "Red",
-  "Blue",
-  "Green",
-  "Yellow",
-  "Purple",
-  // ... add more if needed
+  "Coral",
+  "Mango",
+  "Orchid",
+  "Salmon",
+  "Thistle",
+  "Lavender",
+  "Pink",
+  "Tomato",
+  "Violet",
 ];
 
 const customAnimals = [
-  // "Husky",
-  // "Labrador",
-  // "Retriever",
-  // "Cow",
-  // "Cat",
-  // "Horse",
-  // "Dog",
-  // "Lion",
-  // "Zebra",
-  // "Owl",
-  "Raccoon",
-  "Deer",
-  "Beaver",
-  // "Fox",
+  "Zebra",
+  "Dog",
+  "Wolf",
+  "Tiger",
+  "Giraffe",
+  "Panda",
   "Bear",
-  // ... add more if needed
+  "Rhino",
+  "Raccoon",
+  "Fox",
+  "Owl",
+  "Bison",
+  "Koala",
+  "Sheep",
+  "Cow",
+  "Lion",
+  "Donkey",
+  "Chicken",
+  "Horse",
+  "Walrus",
 ];
+
 // Helper function to generate unique username
 const customConfig = {
   dictionaries: [customAdjectives, customColors, customAnimals],
   separator: "-",
   length: 3,
+  style: "capital",
 };
 
 function generateUsernameComponents() {
   const baseUsername = uniqueNamesGenerator(customConfig);
   const hash = crypto.randomBytes(3).toString("hex"); // 6-character hash
   const username = `${baseUsername}-${hash}`;
-  const animal = baseUsername.split(customConfig.separator).pop(); // Get the animal part of the username
+  const parts = baseUsername.split(customConfig.separator);
 
-  return { username, animal };
+  // Assuming adjectives first, then colors, then animals
+  // const adjective = parts[0];
+  const color = parts[1];
+  const animal = parts[2];
+
+  return { username, animal, color };
 }
 
 async function generateUniqueUsername() {
   let username;
   let animal;
+  let color;
   let isUnique = false;
 
   while (!isUnique) {
     const result = generateUsernameComponents();
     username = result.username;
     animal = result.animal;
-    console.log("username", username);
-    console.log("animal", animal);
+    color = result.color;
+
+    // Check if username is unique
     const existingUser = await User.findOne({ username });
     if (!existingUser) {
       isUnique = true;
     }
   }
 
-  return { username, animal };
+  return { username, animal, color };
 }
 
 // Register User
 const registerUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const { username, animal } = await generateUniqueUsername();
-    const avatarUrl = `/avatars/${animal}.png`; // Assuming avatar images are stored in the public/avatars directory
+    const { username, animal, color } = await generateUniqueUsername();
+    const avatarUrl = `/avatars/${animal}`; // Assuming avatar images are stored in the public/avatars directory
 
     //const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
-    const user = new User({ username, email, password, avatar: avatarUrl });
+    const user = new User({
+      username,
+      email,
+      password,
+      avatar: avatarUrl,
+      color,
+    });
     // const user = new User({
     //   username,
     //   email,
@@ -107,6 +143,7 @@ const registerUser = async (req, res) => {
       message: "User registered successfully",
       username,
       avatar: avatarUrl,
+      color, // Include color in response
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -145,6 +182,7 @@ const loginUser = async (req, res) => {
       username: user.username,
       email: user.email,
       avatar: user.avatar,
+      color: user.color,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "1d",
@@ -158,6 +196,7 @@ const loginUser = async (req, res) => {
           id: user.id,
           username: user.username,
           avatar: user.avatar, // Ensure avatar is included
+          color: user.color,
           email: user.email,
           role: user.role,
           isVerified: user.isVerified,

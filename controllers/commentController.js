@@ -24,6 +24,14 @@ const uploadStream = (fileBuffer) => {
   });
 };
 
+// Function to resize and compress image using sharp
+// const processImage = async (buffer) => {
+//   return sharp(buffer)
+//     .resize({ width: 800, height: 800, fit: 'inside' }) // Resize while maintaining aspect ratio
+//     .jpeg({ quality: 80 }) // Compress to 80% quality
+//     .toBuffer();
+// };
+
 exports.createComment = async (req, res) => {
   try {
     const { message, author, location, petId } = req.body;
@@ -35,6 +43,15 @@ exports.createComment = async (req, res) => {
       const result = await uploadStream(req.file.buffer);
       image = result.secure_url;
     }
+
+    // if (req.file) {
+    //   // Process the image
+    //   const processedImageBuffer = await processImage(req.file.buffer);
+
+    //   // Upload processed image to Cloudinary
+    //   const result = await uploadStream(processedImageBuffer);
+    //   image = result.secure_url;
+    // }
 
     console.log("Request body:", req.body);
     console.log("Message:", message);

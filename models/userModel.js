@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
       type: String, // URL or file path to avatar image
       default: "/avatars/default.png", // Default avatar path
     },
+    color: { type: String, default: "gray" }, // Add color field
     firstName: {
       type: String,
       trim: true,
