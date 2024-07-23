@@ -144,14 +144,21 @@ async function getPets(req, res) {
       filters.date = { $gte: date };
     }
 
+    // if (colors) {
+    //   const colorNames = colors.split(",").map((color) => color.trim());
+    //   filters.$or = [
+    //     { mainColor: { $in: colorNames } },
+    //     { markingColors: { $in: colorNames } },
+    //   ];
+    // }
     if (colors) {
-      const colorNames = colors.split(",").map((color) => color.trim());
+      const colorHexValues = colors.split(",").map((color) => color.trim());
       filters.$or = [
-        { mainColor: { $in: colorNames } },
-        { markingColors: { $in: colorNames } },
+        { "mainColor.hex": { $in: colorHexValues } },
+        { "markingColors.hex": { $in: colorHexValues } },
       ];
     }
-
+    // colors: '#000000,#BEBEBE',
     if (patterns) {
       const patternNames = patterns.split(",").map((pattern) => pattern.trim());
       filters.markingPattern = { $in: patternNames };
