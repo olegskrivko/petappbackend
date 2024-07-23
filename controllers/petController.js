@@ -8,7 +8,7 @@ const OneSignal = require("onesignal-node");
 const multer = require("multer");
 const cloudinary = require("../config/cloudinaryConfig");
 const { log } = require("console");
-
+const sharp = require("sharp"); // Add sharp
 // Promisify the upload stream
 const uploadStream = (fileBuffer) => {
   return new Promise((resolve, reject) => {
