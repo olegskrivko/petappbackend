@@ -9,6 +9,11 @@ const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
 const shelterRoutes = require("./shelterRoutes");
 const utilityRoutes = require("./utilityRoutes");
+const categoryRoutes = require("./categoryRoutes");
+const serviceRoutes = require("./serviceRoutes");
+const serviceCategoryRoutes = require("./serviceCategoryRoutes");
+const businessRoutes = require("./businessRoutes");
+const infrastructureRoutes = require("./infrastructureRoutes");
 const authenticateJWT = require("../middlewares/authentication/auth");
 // const swaggerUiApp = require("./swagger");
 // const {
@@ -30,7 +35,11 @@ router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
 router.use("/articles", articleRoutes);
 router.use("/shelters", shelterRoutes);
-
+router.use("/categories", categoryRoutes);
+router.use("/infrastructures", infrastructureRoutes);
+router.use("/businesses", businessRoutes);
+router.use("/services", serviceRoutes);
+router.use("/service-categories", serviceCategoryRoutes);
 // Routes
 // router.use("/api-docs", swaggerUiApp); // Mount Swagger UI
 

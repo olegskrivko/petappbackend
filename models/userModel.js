@@ -117,6 +117,12 @@ const userSchema = new mongoose.Schema(
         ref: "Pet",
       },
     ],
+    businesses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Business",
+      },
+    ],
     emailVerificationToken: {
       type: String,
       default: null,

@@ -187,7 +187,191 @@
       { "value": "+371", "label": "+371" },
       { "value": "+372", "label": "+372" },
       { "value": "+370", "label": "+370" }
-    ]
+    ],
+    "serviceCategoryOptions": {
+      "1": {
+        "name": "Pet Boarding",
+        "description": "Pet Boarding services provide temporary housing and care for pets when their owners are away. Facilities often include amenities like play areas, feeding, and daily exercise.",
+        "tags": [
+          "Overnight Stay",
+          "Daycare",
+          "Kennels",
+          "Pet Hotels",
+          "Cage-Free Boarding"
+        ]
+      },
+      "2": {
+        "name": "Veterinary Services",
+        "description": "Veterinary Services offer medical care for pets, including routine check-ups, emergency care, and specialized treatments. These services ensure pets receive necessary health and wellness attention.",
+        "tags": [
+          "Routine Check-ups",
+          "Emergency Care",
+          "Surgery",
+          "Vaccinations",
+          "Dental Care",
+          "Wellness Exams"
+        ]
+      },
+      "3": {
+        "name": "Pet Grooming",
+        "description": "Pet Grooming includes bathing, brushing, trimming, and styling services to keep pets clean and comfortable. Groomers also provide nail trimming and ear cleaning.",
+        "tags": [
+          "Bathing",
+          "Haircuts",
+          "Nail Trimming",
+          "Ear Cleaning",
+          "Styling"
+        ]
+      },
+      "4": {
+        "name": "Pet Photography",
+        "description": "Pet Photography captures high-quality images of pets in various settings. Services may include studio sessions, on-location shoots, and customized photo packages.",
+        "tags": [
+          "Studio Photography",
+          "On-Location Shoots",
+          "Portraits",
+          "Action Shots",
+          "Custom Packages"
+        ]
+      },
+      "5": {
+        "name": "Pet Rescue and Search",
+        "description": "Pet Rescue and Search services focus on locating lost pets and providing emergency rescue operations. These organizations often help with rehoming and fostering.",
+        "tags": [
+          "Lost Pet Recovery",
+          "Emergency Rescue",
+          "Rehoming",
+          "Fostering",
+          "Microchip Scanning"
+        ]
+      },
+      "6": {
+        "name": "Pet Sitting",
+        "description": "Pet Sitting involves care for pets in their own home while owners are away. Services typically include feeding, walking, and companionship.",
+        "tags": [
+          "In-Home Care",
+          "Feeding",
+          "Walking",
+          "Playtime",
+          "Medication Administration"
+        ]
+      },
+      "7": {
+        "name": "Pet Supplies and Accessories",
+        "description": "Pet Supplies and Accessories include products for pets such as food, toys, grooming tools, and bedding. These items help keep pets healthy, entertained, and comfortable.",
+        "tags": [
+          "Pet Food",
+          "Toys",
+          "Grooming Tools",
+          "Bedding",
+          "Collars and Leashes"
+        ]
+      },
+      "8": {
+        "name": "Pet Training",
+        "description": "Pet Training services offer obedience training, behavior modification, and specialized instruction for pets. Training may be provided in group classes or private sessions.",
+        "tags": [
+          "Obedience Training",
+          "Behavior Modification",
+          "Puppy Classes",
+          "Advanced Training",
+          "Private Sessions"
+        ]
+      },
+      "9": {
+        "name": "Dog Walking",
+        "description": "Dog Walking services provide exercise and outdoor activity for dogs. Walkers may offer scheduled walks, group walks, or private sessions.",
+        "tags": [
+          "Scheduled Walks",
+          "Group Walks",
+          "Private Walks",
+          "Exercise",
+          "Socialization"
+        ]
+      },
+      "10": {
+        "name": "Pet Art",
+        "description": "Pet Art includes custom artwork featuring pets, such as paintings, drawings, and sculptures. These pieces celebrate and immortalize pets in a creative form.",
+        "tags": [
+          "Paintings",
+          "Drawings",
+          "Sculptures",
+          "Custom Portraits",
+          "Commemorative Art"
+        ]
+      },
+      "11": {
+        "name": "Pet Transportation",
+        "description": "Pet Transportation services assist in safely moving pets from one location to another, whether locally or over long distances. Services include ground transport and air travel arrangements.",
+        "tags": [
+          "Local Transport",
+          "Long-Distance Transport",
+          "Air Travel",
+          "Ground Transport",
+          "Pet Relocation"
+        ]
+      },
+      "12": {
+        "name": "Pet Burial Services",
+        "description": "Pet Burial Services provide respectful end-of-life care, including burial and cremation options. Services may also include memorials and aftercare.",
+        "tags": ["Burial", "Cremation", "Memorials", "Urns", "Aftercare"]
+      },
+      "13": {
+        "name": "Pet Breeders",
+        "description": "Pet Breeders specialize in the responsible breeding of pets. They ensure the health and well-being of animals and provide guidance on pet care for new owners.",
+        "tags": [
+          "Responsible Breeding",
+          "Puppies",
+          "Kittens",
+          "Breed Information",
+          "Health Guarantees"
+        ]
+      },
+      "14": {
+        "name": "Pet Insurance",
+        "description": "Pet Insurance offers financial protection against veterinary expenses for unexpected health issues or accidents. Policies may cover various treatments and conditions.",
+        "tags": [
+          "Accident Coverage",
+          "Illness Coverage",
+          "Wellness Plans",
+          "Claims Assistance",
+          "Policy Options"
+        ]
+      },
+      "15": {
+        "name": "Pet Weddings",
+        "description": "Pet Weddings involve organizing ceremonies and celebrations for pets and their owners. Services may include themed events, custom attire, and photography.",
+        "tags": [
+          "Themed Events",
+          "Custom Attire",
+          "Photography",
+          "Decorations",
+          "Wedding Planning"
+        ]
+      },
+      "16": {
+        "name": "Pet Legal Services",
+        "description": "Pet Legal Services provide legal assistance related to pet ownership, including custody disputes, liability issues, and pet-related estate planning.",
+        "tags": [
+          "Custody Disputes",
+          "Liability Issues",
+          "Estate Planning",
+          "Contracts",
+          "Legal Advice"
+        ]
+      },
+      "17": {
+        "name": "Pet Playgroups or Socialization",
+        "description": "Pet Playgroups or Socialization services facilitate interactions between pets to promote social skills and exercise. These may include group play sessions and training.",
+        "tags": [
+          "Group Play",
+          "Socialization",
+          "Training",
+          "Interactive Sessions",
+          "Behavior Development"
+        ]
+      }
+    }
   },
   "formTitles": {
     "petDetails": "Pet Details",

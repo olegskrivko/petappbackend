@@ -187,7 +187,192 @@
       { "value": "+371", "label": "+371" },
       { "value": "+372", "label": "+372" },
       { "value": "+370", "label": "+370" }
-    ]
+    ],
+
+    "serviceCategoryOptions": {
+      "1": {
+        "name": "Mājdzīvnieku uzraudzība",
+        "description": "Mājdzīvnieku uzraudzības pakalpojumi nodrošina pagaidu mājokli un aprūpi dzīvniekiem, kad to īpašnieki nav mājās. Iekārtas bieži ietver spēļu zonas, barošanu un ikdienas vingrinājumus.",
+        "tags": [
+          "Nakšņošana",
+          "Dienas aprūpe",
+          "Dzīvnieku patversmes",
+          "Mājdzīvnieku viesnīcas",
+          "Bez būrīšu uzraudzība"
+        ]
+      },
+      "2": {
+        "name": "Veterinārās pakalpojumi",
+        "description": "Veterinārās pakalpojumi piedāvā medicīnisko aprūpi mājdzīvniekiem, tostarp rutīnas pārbaudes, neatliekamo palīdzību un specializētus ārstēšanas veidus. Šie pakalpojumi nodrošina nepieciešamo veselības un labklājības uzraudzību.",
+        "tags": [
+          "Rutīnas pārbaudes",
+          "Neatliekamā palīdzība",
+          "Ķirurģija",
+          "Vakcinācija",
+          "Zobu aprūpe",
+          "Veselības pārbaudes"
+        ]
+      },
+      "3": {
+        "name": "Mājdzīvnieku griešana",
+        "description": "Mājdzīvnieku griešana ietver peldēšanu, ķemmēšanu, griešanu un stilizēšanu, lai mājdzīvnieki būtu tīri un ērti. Griezēji arī piedāvā nagu griešanu un auss tīrīšanu.",
+        "tags": [
+          "Peldēšana",
+          "Frizūras",
+          "Nagu griešana",
+          "Ausu tīrīšana",
+          "Stilizēšana"
+        ]
+      },
+      "4": {
+        "name": "Mājdzīvnieku fotogrāfija",
+        "description": "Mājdzīvnieku fotogrāfija iemūžina augstas kvalitātes attēlus no mājdzīvniekiem dažādos apstākļos. Pakalpojumi var ietvert studijas sesijas, uz vietas fotosesijas un pielāgotus foto paketes.",
+        "tags": [
+          "Studijas fotogrāfija",
+          "Uz vietas fotosesijas",
+          "Portreti",
+          "Darbības kadri",
+          "Pielāgotas paketes"
+        ]
+      },
+      "5": {
+        "name": "Mājdzīvnieku glābšana un meklēšana",
+        "description": "Mājdzīvnieku glābšana un meklēšana koncentrējas uz pazudušo mājdzīvnieku atrašanu un neatliekamās glābšanas operācijām. Šīs organizācijas bieži palīdz ar jaunu māju meklēšanu un pagaidu aprūpi.",
+        "tags": [
+          "Pazudušo dzīvnieku atgūšana",
+          "Neatliekamā glābšana",
+          "Jaunu māju meklēšana",
+          "Pagaidu aprūpe",
+          "Mikroshēmas skanēšana"
+        ]
+      },
+      "6": {
+        "name": "Mājdzīvnieku aprūpe",
+        "description": "Mājdzīvnieku aprūpe ietver rūpes par dzīvniekiem viņu mājās, kamēr īpašnieki nav mājās. Pakalpojumi parasti ietver barošanu, pastaigas un sabiedrību.",
+        "tags": [
+          "Aprūpe mājās",
+          "Barošana",
+          "Pastaigas",
+          "Spēles laiks",
+          "Zāļu ievadīšana"
+        ]
+      },
+      "7": {
+        "name": "Mājdzīvnieku preces un aksesuāri",
+        "description": "Mājdzīvnieku preces un aksesuāri ietver produktus mājdzīvniekiem, piemēram, ēdienu, rotaļlietas, griešanas rīkus un gultas. Šie produkti palīdz uzturēt mājdzīvniekus veselīgus, izklaidētus un komfortablus.",
+        "tags": [
+          "Mājdzīvnieku ēdiens",
+          "Rotaļlietas",
+          "Griešanas rīki",
+          "Gultas",
+          "Kaklasiksnas un pavadas"
+        ]
+      },
+      "8": {
+        "name": "Mājdzīvnieku apmācība",
+        "description": "Mājdzīvnieku apmācības pakalpojumi piedāvā paklausības apmācību, uzvedības pielāgošanu un specializētu instrukciju mājdzīvniekiem. Apmācība var notikt grupas nodarbībās vai privātās sesijās.",
+        "tags": [
+          "Paklausības apmācība",
+          "Uzvedības pielāgošana",
+          "Kucēnu klases",
+          "Padevība",
+          "Privātās sesijas"
+        ]
+      },
+      "9": {
+        "name": "Suņu pastaigas",
+        "description": "Suņu pastaigas pakalpojumi nodrošina vingrinājumus un āra aktivitātes suņiem. Pastaigu sniedzēji var piedāvāt plānotas pastaigas, grupas pastaigas vai privātas sesijas.",
+        "tags": [
+          "Plānotas pastaigas",
+          "Grupu pastaigas",
+          "Privātas pastaigas",
+          "Vingrinājumi",
+          "Sociālā integrācija"
+        ]
+      },
+      "10": {
+        "name": "Mājdzīvnieku māksla",
+        "description": "Mājdzīvnieku māksla ietver pielāgotu mākslu ar mājdzīvniekiem, piemēram, gleznošanu, zīmēšanu un skulptūrām. Šie darbi svin un iemūžina mājdzīvniekus radošā formā.",
+        "tags": [
+          "Gleznošana",
+          "Zīmēšana",
+          "Skulptūras",
+          "Pielāgoti portreti",
+          "Atmiņas māksla"
+        ]
+      },
+      "11": {
+        "name": "Mājdzīvnieku transportēšana",
+        "description": "Mājdzīvnieku transportēšanas pakalpojumi palīdz droši pārvietot mājdzīvniekus no vienas vietas uz otru, vai nu vietēji vai ilgākos attālumos. Pakalpojumi ietver sauszemes transportu un gaisa ceļojuma organizēšanu.",
+        "tags": [
+          "Vietējais transports",
+          "Ilgdistances transports",
+          "Gaisa ceļojums",
+          "Sauszemes transports",
+          "Mājdzīvnieku pārvietošana"
+        ]
+      },
+      "12": {
+        "name": "Mājdzīvnieku apbedīšanas pakalpojumi",
+        "description": "Mājdzīvnieku apbedīšanas pakalpojumi nodrošina cieņpilnu beigu aprūpi, tostarp apbedīšanas un kremācijas iespējas. Pakalpojumi var ietvert arī piemiņas ceremonijas un pēc aprūpi.",
+        "tags": ["Apbedīšana", "Kremācija", "Piemiņas", "Urnas", "Pēc aprūpe"]
+      },
+      "13": {
+        "name": "Mājdzīvnieku audzētāji",
+        "description": "Mājdzīvnieku audzētāji specializējas atbildīgā mājdzīvnieku audzēšanā. Viņi nodrošina dzīvnieku veselību un labklājību un sniedz norādījumus par mājdzīvnieku aprūpi jaunajiem īpašniekiem.",
+        "tags": [
+          "Atbildīga audzēšana",
+          "Kucēni",
+          "Kaķēni",
+          "Rasu informācija",
+          "Veselības garantijas"
+        ]
+      },
+      "14": {
+        "name": "Mājdzīvnieku apdrošināšana",
+        "description": "Mājdzīvnieku apdrošināšana piedāvā finansiālu aizsardzību pret veterinārās izdevumiem negaidītām veselības problēmām vai negadījumiem. Polises var aptvert dažādas ārstēšanas iespējas un stāvokļus.",
+        "tags": [
+          "Negadījuma apdrošināšana",
+          "Slimību apdrošināšana",
+          "Veselības plāni",
+          "Pieteikumu palīdzība",
+          "Polises iespējas"
+        ]
+      },
+      "15": {
+        "name": "Mājdzīvnieku kāzas",
+        "description": "Mājdzīvnieku kāzas ietver ceremoniju un svinību organizēšanu mājdzīvniekiem un to īpašniekiem. Pakalpojumi var ietvert tematiskas pasākumus, pielāgotu apģērbu un fotogrāfiju.",
+        "tags": [
+          "Tematiskas pasākumi",
+          "Pielāgots apģērbs",
+          "Fotogrāfija",
+          "Dekorācijas",
+          "Kāzu plānošana"
+        ]
+      },
+      "16": {
+        "name": "Mājdzīvnieku juridiskie pakalpojumi",
+        "description": "Mājdzīvnieku juridiskie pakalpojumi sniedz juridisku palīdzību saistībā ar mājdzīvnieku īpašumtiesībām, tostarp aizbildnības strīdiem, atbildības jautājumiem un mājdzīvnieku īpašumtiesību plānošanu.",
+        "tags": [
+          "Aizbildnības strīdi",
+          "Atbildības jautājumi",
+          "Īpašumtiesību plānošana",
+          "Līgumi",
+          "Juridiska palīdzība"
+        ]
+      },
+      "17": {
+        "name": "Mājdzīvnieku spēļu grupas vai socializācija",
+        "description": "Mājdzīvnieku spēļu grupas vai socializācijas pakalpojumi veicina mijiedarbību starp mājdzīvniekiem, lai veicinātu sociālās prasmes un vingrinājumus. Tie var ietvert grupas spēļu sesijas un apmācību.",
+        "tags": [
+          "Grupas spēles",
+          "Socializācija",
+          "Apmācība",
+          "Interaktīvas sesijas",
+          "Uzvedības attīstība"
+        ]
+      }
+    }
   },
   "formTitles": {
     "petDetails": "Dzīvnieka informācija",

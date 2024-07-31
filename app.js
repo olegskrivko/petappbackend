@@ -33,7 +33,7 @@ const limiter = rateLimit({
 });
 
 // Security middleware
-app.use(limiter); // Apply the rate limiting middleware to all requests
+//app.use(limiter); // Apply the rate limiting middleware to all requests
 app.use(helmet()); // Adds security-related HTTP headers
 app.use(xss()); // Protects against XSS attacks by sanitizing user inputs
 app.use(mongoSanitize()); // Protects against NoSQL injection by sanitizing user inputs

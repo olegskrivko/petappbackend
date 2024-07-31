@@ -1,6 +1,7 @@
 // const Pet = require("../models/Pet");
 // const Comment = require("../models/Comment");
 const User = require("../models/userModel");
+const Business = require("../models/businessModel");
 
 const updateUserFields = async (req, res) => {
   const userId = req.params.userId;
@@ -110,10 +111,31 @@ const removeFavorite = async (req, res) => {
   }
 };
 
+// Get all businesses for a specific user
+// const getBusinessesByUserId = async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+//     const businesses = await Business.find({ owner: userId }).populate(
+//       "servicesOffered"
+//     );
+
+//     if (!businesses) {
+//       return res
+//         .status(404)
+//         .json({ message: "No businesses found for this user." });
+//     }
+
+//     res.status(200).json(businesses);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
 module.exports = {
   updateUserFields,
   favoritedPets,
   ownedPets,
   addFavorite,
   removeFavorite,
+  // getBusinessesByUserId,
 };
