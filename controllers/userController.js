@@ -2,6 +2,7 @@
 // const Comment = require("../models/Comment");
 const User = require("../models/userModel");
 const Business = require("../models/businessModel");
+const Pet = require("../models/petModel");
 
 const updateUserFields = async (req, res) => {
   const userId = req.params.userId;
@@ -50,6 +51,7 @@ const favoritedPets = async (req, res) => {
 const ownedPets = async (req, res) => {
   try {
     const userId = req.params.userId;
+    console.log("userId", userId);
     const user = await User.findById(userId).populate("ownedPets");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -59,6 +61,34 @@ const ownedPets = async (req, res) => {
     return res
       .status(500)
       .json({ message: "Server error", error: error.message });
+  }
+};
+
+// Controller function to handle the DELETE request
+const deleteOwnedPets = async (req, res) => {
+  const { userId, petId } = req.params;
+
+  try {
+    // Find and delete the pet
+    const pet = await Pet.findOneAndDelete({ _id: petId, author: userId });
+
+    // Check if the pet was found and deleted
+    if (!pet) {
+      return res.status(404).json({ message: "Pet not found" });
+    }
+
+    // Remove pet from the user's ownedPets array
+    await User.findByIdAndUpdate(
+      userId,
+      { $pull: { ownedPets: petId } },
+      { new: true }
+    );
+
+    // Respond with success message
+    res.status(200).json({ message: "Pet deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting pet:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -137,5 +167,6 @@ module.exports = {
   ownedPets,
   addFavorite,
   removeFavorite,
+  deleteOwnedPets,
   // getBusinessesByUserId,
 };

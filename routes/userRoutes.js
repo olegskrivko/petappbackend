@@ -11,6 +11,12 @@ router.get("/:userId/favorites", authenticateJWT, userController.favoritedPets);
 
 router.get("/:userId/ownedPets", authenticateJWT, userController.ownedPets);
 
+router.delete(
+  "/:userId/ownedPets/:petId",
+  authenticateJWT,
+  userController.deleteOwnedPets
+);
+
 router.put(
   "/:userId/favorites/:petId/add",
 
