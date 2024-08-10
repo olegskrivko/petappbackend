@@ -61,7 +61,7 @@
         { "value": "4", "label": "Senior" }
       ]
     },
-    "breedOptions": {
+    "subcategoryOptions": {
       "1": [
         { "value": "0", "label": "Labrador" },
         { "value": "1", "label": "Labrador" },
