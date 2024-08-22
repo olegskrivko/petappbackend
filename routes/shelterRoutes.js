@@ -23,7 +23,7 @@ router.post(
 );
 
 // Get shelter by id
-router.get("/:slug", shelterController.getShelterById);
+router.get("/:id", shelterController.getShelterById);
 
 // Update an existing shelter
 router.put(

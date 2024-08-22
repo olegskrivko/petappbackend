@@ -18,63 +18,84 @@ exports.createShelter = async (req, res) => {
   try {
     const {
       name,
+      businessForm,
+      registrationNumber,
       description,
-      author,
+      isActive,
       website,
-      coverPicture,
-      addressDetails,
-      location,
-      contact,
-      socialMedia,
-      services,
+      logo,
+      address,
+      city,
+      state,
+      country,
+      zipCode,
+      latitude,
+      longitude,
+      phone,
+      email,
+      socialMediaProfiles,
+      photos,
       tags,
+      totalAnimals,
+      adoptedAnimals,
     } = req.body;
 
     console.log("body", req.body);
 
-    // Generate slug from the name
-    const slug = slugify(name, { lower: true, strict: true });
+    // Create the addressDetails and location objects
+    const addressDetails = {
+      address,
+      city,
+      state,
+      country,
+      zipCode,
+    };
 
+    const location = {
+      type: "Point",
+      coordinates: [parseFloat(longitude), parseFloat(latitude)], // longitude first, then latitude
+    };
+
+    const contact = {
+      phone,
+      email,
+    };
+
+    // Create the new Shelter document
     const newShelter = new Shelter({
-      slug, // Include the generated slug
       name,
+      businessForm,
+      registrationNumber,
       description,
-      author,
+      isActive,
       website,
-      coverPicture,
+      logo,
       addressDetails,
       location,
       contact,
-      socialMedia,
-      services,
+      socialMediaProfiles,
+      photos,
       tags,
+      totalAnimals,
+      adoptedAnimals,
     });
 
+    // Save the shelter document to the database
     await newShelter.save();
     res.status(201).json(newShelter);
   } catch (error) {
     res.status(500).json({ message: "Error creating shelter", error });
   }
 };
-// Get shelter by slug
-exports.getShelterById = async (req, res) => {
-  try {
-    const { slug } = req.params;
-    const shelter = await Shelter.findOne({ slug });
-    if (!shelter) {
-      return res.status(404).json({ message: "Shelter not found" });
-    }
-    res.status(200).json(shelter);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching shelter", error });
-  }
-};
 
 // Get shelter by slug
 exports.getShelterById = async (req, res) => {
   try {
-    const { slug } = req.params;
-    const shelter = await Shelter.findOne({ slug });
+    // Find shelter by ID and populate related data
+    const shelter = await Shelter.findById(req.params.id)
+      .populate("socialMediaProfiles.platform", "name iconUrl") // Populate platform name and iconUrl
+      .exec();
+
     if (!shelter) {
       return res.status(404).json({ message: "Shelter not found" });
     }

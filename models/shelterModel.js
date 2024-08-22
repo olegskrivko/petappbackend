@@ -1,5 +1,22 @@
 const mongoose = require("mongoose");
 
+// Schema for storing individual social media profiles
+const SocialMediaProfileSchema = new mongoose.Schema({
+  platform: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "SocialMediaPlatform",
+    required: true,
+  },
+  profileUrl: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+});
+
 const locationSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -9,7 +26,7 @@ const locationSchema = new mongoose.Schema({
   coordinates: {
     type: [Number],
     index: "2dsphere", // Create a geospatial index
-    // required: true,
+    required: true,
   },
 });
 
@@ -40,52 +57,28 @@ const contactSchema = new mongoose.Schema({
   },
 });
 
-const socialMediaSchema = new mongoose.Schema({
-  facebook: {
-    name: { type: String, default: "Facebook" },
-    url: String,
-  },
-  x: {
-    name: { type: String, default: "X" },
-    url: String,
-  },
-  instagram: {
-    name: { type: String, default: "Instagram" },
-    url: String,
-  },
-  linkedin: {
-    name: { type: String, default: "LinkedIn" },
-    url: String,
-  },
-  youtube: {
-    name: { type: String, default: "YouTube" },
-    url: String,
-  },
-});
-
 const shelterSchema = new mongoose.Schema({
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   name: {
     type: String,
+  },
+  businessForm: {
+    type: String,
+  },
+  registrationNumber: {
+    type: Number,
   },
   description: {
     type: String,
   },
-  author: String,
-  website: {
-    name: { type: String },
-    url: { type: String },
+  isActive: {
+    type: Boolean,
+    default: true,
   },
-  coverPicture: {
+  website: {
     type: String,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  logo: {
+    type: String,
   },
   addressDetails: {
     type: addressDetailsSchema,
@@ -96,9 +89,23 @@ const shelterSchema = new mongoose.Schema({
   contact: {
     type: contactSchema,
   },
-  socialMedia: socialMediaSchema,
-  services: [String],
+  socialMediaProfiles: [
+    SocialMediaProfileSchema, // Embeds social media profiles directly in the user document
+  ],
+  photos: [String],
   tags: [String],
+  totalAnimals: {
+    type: Number,
+    default: 0,
+  },
+  adoptedAnimals: {
+    type: Number,
+    default: 0,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Shelter = mongoose.model("Shelter", shelterSchema);

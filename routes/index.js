@@ -14,6 +14,7 @@ const serviceRoutes = require("./serviceRoutes");
 const serviceCategoryRoutes = require("./serviceCategoryRoutes");
 const businessRoutes = require("./businessRoutes");
 const infrastructureRoutes = require("./infrastructureRoutes");
+const socialMediaPlatformRoutes = require("./socialMediaPlatformRoutes");
 const authenticateJWT = require("../middlewares/authentication/auth");
 // const swaggerUiApp = require("./swagger");
 // const {
@@ -40,6 +41,7 @@ router.use("/infrastructures", infrastructureRoutes);
 router.use("/businesses", businessRoutes);
 router.use("/services", serviceRoutes);
 router.use("/service-categories", serviceCategoryRoutes);
+router.use("/social-media-platforms", socialMediaPlatformRoutes);
 // Routes
 // router.use("/api-docs", swaggerUiApp); // Mount Swagger UI
 

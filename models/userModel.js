@@ -1,6 +1,27 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
+// Schema for storing individual social media profiles
+const SocialMediaProfileSchema = new mongoose.Schema({
+  platform: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "SocialMediaPlatform",
+    required: true,
+  },
+  profileUrl: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  followersCount: {
+    type: Number,
+    default: 0,
+  },
+});
+
 const locationSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -122,6 +143,9 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Business",
       },
+    ],
+    socialMediaProfiles: [
+      SocialMediaProfileSchema, // Embeds social media profiles directly in the user document
     ],
     emailVerificationToken: {
       type: String,
