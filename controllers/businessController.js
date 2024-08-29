@@ -215,9 +215,14 @@ exports.createBusiness = async (req, res) => {
     const {
       name,
       description,
+      businessForm,
+      registrationNumber,
+      isActive,
       tags = [],
       website,
-      // socialMediaProfiles = [],
+      minPrice,
+      maxPrice,
+      socialMediaProfiles,
       category = [],
       locations = [],
       owner,
@@ -227,6 +232,27 @@ exports.createBusiness = async (req, res) => {
     //   return res.status(400).json({ message: "Name and owner are required" });
     // }
     console.log("req.bodyxx", req.body);
+    // Parse socialMediaProfiles if it's a JSON string
+    let parsedSocialMediaProfiles = [];
+    try {
+      parsedSocialMediaProfiles = JSON.parse(socialMediaProfiles);
+    } catch (error) {
+      console.error("Error parsing socialMediaProfiles:", error);
+      return res
+        .status(400)
+        .json({ message: "Invalid social media profiles format" });
+    }
+    // const transformedSocialMediaProfiles = socialMediaProfiles.map(
+    //   (profile) => ({
+    //     platform: profile.platform,
+    //     profileUrl: profile.profileUrl,
+    //     username: profile.username,
+    //   })
+    // );
+    // console.log(
+    //   "transformedSocialMediaProfiles",
+    //   transformedSocialMediaProfiles
+    // );
     const transformedLocations = locations.map((loc) => ({
       name: loc.name || "",
       description: loc.description || "",
@@ -241,8 +267,7 @@ exports.createBusiness = async (req, res) => {
       friday: loc.friday || "",
       saturday: loc.saturday || "",
       sunday: loc.sunday || "",
-      season: loc.season || [],
-      address: loc.address || "",
+      street: loc.address || "",
       city: loc.city || "",
       state: loc.state || "",
       zipCode: loc.zipCode || "",
@@ -268,24 +293,19 @@ exports.createBusiness = async (req, res) => {
           .json({ message: "Failed to upload image to Cloudinary", error });
       }
     }
-    // Ensure socialMediaProfiles is an array of objects
-    // const formattedSocialMediaProfiles = socialMediaProfiles
-    //   .map((profile) => {
-    //     try {
-    //       return JSON.parse(profile);
-    //     } catch (err) {
-    //       console.error("Invalid social media profile format:", profile);
-    //       return null; // or handle the error as needed
-    //     }
-    //   })
-    //   .filter((profile) => profile !== null);
+
     const business = new Business({
       name,
       description,
+      businessForm,
+      registrationNumber,
+      isActive,
       image: imageUrl,
       tags,
       website,
-      // socialMediaProfiles,
+      minPrice,
+      maxPrice,
+      socialMediaProfiles: parsedSocialMediaProfiles,
       category,
       locations: transformedLocations,
       owner: existingUser._id,
@@ -329,7 +349,10 @@ exports.deleteBusiness = async (req, res) => {
 exports.getBusinessById = async (req, res) => {
   try {
     const { id } = req.params;
-    const business = await Business.findById(id);
+    const business = await Business.findById(id).populate(
+      "socialMediaProfiles.platform",
+      "name iconUrl"
+    ); // Populate platform name and iconUrl
     if (!business) return res.status(404).json({ error: "Business not found" });
     res.status(200).json(business);
   } catch (error) {

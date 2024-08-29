@@ -49,10 +49,8 @@ const locationSchema = new mongoose.Schema(
     friday: { type: String },
     saturday: { type: String },
     sunday: { type: String },
-    season: [
-      String, // e.g., "Winter", "Summer", etc.
-    ],
-    address: {
+
+    street: {
       type: String,
     },
     city: {
@@ -77,16 +75,22 @@ const BusinessSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // businessForm: {
-    //   type: String,
-    // },
-    // registrationNumber: {
-    //   type: Number,
-    // },
-    // isActive: {
-    //   type: Boolean,
-    //   default: true,
-    // },
+    businessForm: {
+      type: String,
+    },
+    registrationNumber: {
+      type: String,
+    },
+    minPrice: {
+      type: String,
+    },
+    maxPrice: {
+      type: String,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
     description: {
       type: String,
       // required: true,
@@ -102,9 +106,9 @@ const BusinessSchema = new mongoose.Schema(
     website: {
       type: String,
     },
-    // socialMediaProfiles: [
-    //   SocialMediaProfileSchema, // Embeds social media profiles directly in the user document
-    // ],
+    socialMediaProfiles: [
+      SocialMediaProfileSchema, // Embeds social media profiles directly in the user document
+    ],
 
     category: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
 
