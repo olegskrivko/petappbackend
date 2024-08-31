@@ -212,8 +212,8 @@ async function getPetById(req, res) {
     }
 
     // Increment views by 1
-    pet.views++;
-    await pet.save();
+    // pet.views++;
+    // await pet.save();
     res.status(200).json(pet);
   } catch (error) {
     console.error(error);
