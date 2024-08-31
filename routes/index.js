@@ -23,9 +23,6 @@ const authenticateJWT = require("../middlewares/authentication/auth");
 //   isPetOwner,
 // } = require("../middlewares/authentication/authMiddleware");
 
-// routes
-// router.use("/recipes", authenticateToken, isAuthenticated, recipeRoutes);
-// router.use("/how-to", howToRoutes);
 // router.use("/users", authenticateJWT, userRoutes);
 
 router.use("/utilities", utilityRoutes);

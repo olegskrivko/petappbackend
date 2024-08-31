@@ -6,7 +6,19 @@ const Pet = require("../models/petModel");
 
 const updateUserFields = async (req, res) => {
   const userId = req.params.userId;
+  console.log("userId:", userId);
+  if (!userId || userId === "undefined") {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
   const { country, language, phone, phoneCode } = req.body;
+  console.log("req.body", req.body);
 
   try {
     const user = await User.findByIdAndUpdate(
@@ -141,6 +153,40 @@ const removeFavorite = async (req, res) => {
   }
 };
 
+const getUserInfo = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    console.log("userId:", userId);
+    // Check if userId is valid
+    if (!userId || userId === "undefined") {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Construct response object with only specific fields
+    const userResponse = {
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      language: user.language,
+      // country: user.country,
+      phone: user.phone,
+      phoneCode: user.phoneCode,
+    };
+
+    // Return the user object
+    res.status(200).json(userResponse);
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
 // Get all businesses for a specific user
 // const getBusinessesByUserId = async (req, res) => {
 //   try {
@@ -168,5 +214,6 @@ module.exports = {
   addFavorite,
   removeFavorite,
   deleteOwnedPets,
+  getUserInfo,
   // getBusinessesByUserId,
 };

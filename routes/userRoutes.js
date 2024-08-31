@@ -4,6 +4,9 @@ const userController = require("../controllers/userController");
 // const businessController = require("../controllers/businessController");
 const authenticateJWT = require("../middlewares/authentication/auth");
 
+// Route to get user information
+router.get("/:userId", authenticateJWT, userController.getUserInfo);
+
 // PUT request to update user fields
 router.put("/:userId", authenticateJWT, userController.updateUserFields);
 
